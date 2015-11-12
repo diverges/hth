@@ -13,9 +13,11 @@ public class Typewriter : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        message = guiText.text;
-        guiText.text = "";
-        StartCoroutine(TypeText());
+        if (guiText != null)
+        {
+            message = guiText.text;
+            guiText.text = "";
+        }
 	}
 
     public void LoadText(string message) {
