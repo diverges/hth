@@ -13,7 +13,9 @@ public class P1_Bedroom : Passage {
         CALL_ANSWERED_2,
         CALL_ANSWERED_3,
         CALL_ANSWERED_4,
-        PHONE_RING
+        WAIT_5,
+        FOOTSTEPS,
+        END
     };
 
     //
@@ -105,7 +107,7 @@ public class P1_Bedroom : Passage {
             //
             // Initial State - Load Title
             case State.INIT:
-               if(timer.getElapsedSeconds() > 2.0f) {
+               if(timer.getElapsedSeconds() > 6.0f) {
                     text[0].GetComponent<Typewriter>().LoadText("Not\n Alone");
                     cState = State.INIT_2;
                 }
@@ -113,7 +115,7 @@ public class P1_Bedroom : Passage {
             // 
             // Load Subtitle
             case State.INIT_2:
-                if (timer.getElapsedSeconds() > 4.0f)
+                if (timer.getElapsedSeconds() > 8.0f)
                 {
                     text[1].GetComponent<Typewriter>().LoadText("A hypertext\nadventure game...");
                     cState = State.CALL;
@@ -126,7 +128,7 @@ public class P1_Bedroom : Passage {
                     AudioSource phone = props[0].GetComponent<AudioSource>();
                     if (!phone.isPlaying) phone.Play();
                     if (timer.IsRunning) timer.Stop();
-                    interactible[2].SetActive(true);
+                    interactible[0].SetActive(true);
                     // NS - Act on phone
                 }
                 break;
@@ -136,13 +138,11 @@ public class P1_Bedroom : Passage {
                 if(!timer.IsRunning) {
                     timer.Start();
                     text[2].GetComponent<Typewriter>().LoadText(
-                            "Good Morning! Here's some Ozymandias-\n" +
-                            "I met a traveller from an antique land\n" +
-                            "Who said: \"Two vast and trunkless legs of stone\n" +
-                            "Stand in the desert. Near them, on the sand,\n"
+                            "Hi sweetie.\n" +
+                            "Hope you’re feeling better.\n"
                         );
-                } else if (timer.getElapsedSeconds() > 7.0f) {
-                    interactible[3].SetActive(true);
+                } else if (timer.getElapsedSeconds() > 2.5f) {
+                    interactible[1].SetActive(true);
                 }
                 break;
             case State.CALL_ANSWERED_2:
@@ -150,15 +150,13 @@ public class P1_Bedroom : Passage {
                 {
                     timer.Start();
                     text[2].GetComponent<Typewriter>().LoadText(
-                            "Half sunk, a shattered visage lies, whose frown,\n" +
-                            "And wrinkled lip, and sneer of cold command,\n" +
-                            "Tell that its sculptor well those passions read\n" +
-                            "Which yet survive, stamped on these lifeless things,\n"
+                            "We’re on our way to see\n" +
+                            "your sister's recital.\n"
                         );
                 }
-                else if (timer.getElapsedSeconds() > 5.0f)
+                else if (timer.getElapsedSeconds() > 2.5f)
                 {
-                    interactible[3].SetActive(true);
+                    interactible[1].SetActive(true);
                 }
                 break;
             case State.CALL_ANSWERED_3:
@@ -166,15 +164,14 @@ public class P1_Bedroom : Passage {
                 {
                     timer.Start();
                     text[2].GetComponent<Typewriter>().LoadText(
-                            "The hand that mocked them and the heart that fed:\n" +
-                            "And on the pedestal these words appear:'\n" +
-                            "'My name is Ozymandias, king of kings:\n" +
-                            "Look on my works, ye Mighty, and despair!'"
+                            "I left dinner for you in\n" +
+                            "the oven, your favorite:\n" +
+                            "spaghetti and meatballs." 
                         );
                 }
-                else if (timer.getElapsedSeconds() > 7.0f)
+                else if (timer.getElapsedSeconds() > 3.0f)
                 {
-                    interactible[3].SetActive(true);
+                    interactible[1].SetActive(true);
                 }
                 break;
             case State.CALL_ANSWERED_4:
@@ -182,14 +179,13 @@ public class P1_Bedroom : Passage {
                 {
                     timer.Start();
                     text[2].GetComponent<Typewriter>().LoadText(
-                            "Nothing beside remains.Round the decay\n" +
-                            "Of that colossal wreck, boundless and bare\n" +
-                            "The lone and level sands stretch far away."
+                            "We’ll be back later tonight.\n" +
+                            "Love you!" 
                         );
                 }
-                else if (timer.getElapsedSeconds() > 6.0f)
+                else if (timer.getElapsedSeconds() > 2.0f)
                 {
-                    interactible[3].SetActive(true);
+                    interactible[1].SetActive(true);
                 }
                 break;
             // Default - Should not get here
@@ -213,7 +209,7 @@ public class P1_Bedroom : Passage {
                 if (Input.GetKey(KeyCode.Joystick1Button0) || Input.GetMouseButtonDown(0))
                 {
                     // Go to Call State
-                    interactible[2].SetActive(false);
+                    interactible[0].SetActive(false);
                     AudioSource phone = props[0].GetComponent<AudioSource>();
                     phone.Stop();
                     ui[1].SetActive(true);
@@ -226,12 +222,16 @@ public class P1_Bedroom : Passage {
                 if (Input.GetKey(KeyCode.Joystick1Button0) || Input.GetMouseButtonDown(0))
                 {
                     // Go to Call State
-                    interactible[3].SetActive(false);
+                    interactible[1].SetActive(false);
                     timer.Stop();
                     switch (cState) {
                         case State.CALL_ANSWERED_1: cState = State.CALL_ANSWERED_2; break;
                         case State.CALL_ANSWERED_2: cState = State.CALL_ANSWERED_3; break;
                         case State.CALL_ANSWERED_3: cState = State.CALL_ANSWERED_4; break;
+                        case State.CALL_ANSWERED_4:
+                            ui[1].SetActive(false);
+                            cState = State.END;
+                            break;
                     } 
                 }
                 break;
