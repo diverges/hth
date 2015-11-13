@@ -28,7 +28,7 @@ public class GameController : MonoBehaviour {
         }
 
         if(active.IsDone) {
-            camPos.position = new Vector3(29, 13, 0);
+            camPos.position = new Vector3(60, 12, 0);
             camPos.rotation = Quaternion.Euler(new Vector3(0, 90, 0));
         }
         
