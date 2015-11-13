@@ -21,8 +21,6 @@ public class Typewriter : MonoBehaviour {
 	}
 
     public void LoadText(string message) {
-        if (typing) return;
-
         typing = true;
         guiText.text = "";
         this.message = message;

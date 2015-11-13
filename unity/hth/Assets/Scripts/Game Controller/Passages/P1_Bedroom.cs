@@ -36,6 +36,66 @@ public class P1_Bedroom : Passage {
     private Stopwatch timer = new Stopwatch();
     private State cState;
 
+    bool channel = false;
+    int tvVerse = 0;
+
+    // Coroutines
+    // T.V.
+    IEnumerator TV() {
+        Typewriter tp = text[1].GetComponent<Typewriter>();
+        while(props[0].activeSelf)
+        {
+            interactible[3].SetActive(true);
+            if (channel)
+            {
+                // Food
+                switch (tvVerse)
+                {
+                    case 0:
+                        tp.LoadText(" and once you have the\nonions chopped,\nadd them into\nthe sauce");
+                        yield return new WaitForSeconds(8);
+                        break;
+                    case 1:
+                        tp.LoadText(" and cook them until\nthey’re nice and\ncaramelized.");
+                        yield return new WaitForSeconds(8);
+                        break;
+                }
+                tvVerse++;
+                if (tvVerse >= 2) tvVerse = 0;
+                
+            }
+            else
+            {
+                // News
+                switch (tvVerse)
+                {
+                    case 0:
+                        tp.LoadText(" BREAKING\n NEWS We are getting reports\nof a sudden food shortage\nin our neighboring");
+                        yield return new WaitForSeconds(10);
+                        break;
+                    case 1:
+                        tp.LoadText(" town of Springfield. Sources indicate that\nall the food in grocery");
+                        yield return new WaitForSeconds(10);
+                        break;
+                    case 2:
+                        tp.LoadText(" stores and homes suddenly\ndisappeared overnight,\nleaving thousands\n");
+                        yield return new WaitForSeconds(10);
+                        break;
+                    case 3:
+                        tp.LoadText(" of families starving.\nFood shipments are on their way,");
+                        yield return new WaitForSeconds(10);
+                        break;
+                    case 4:
+                        tp.LoadText(" but be prepared\nfor a sudden influx\nof our neighbors\nin our grocery stores.");
+                        yield return new WaitForSeconds(10);
+                        break;
+                }
+                tvVerse++;
+                if (tvVerse >= 5) tvVerse = 0;
+            }
+        }  
+    }
+
     public override void Cleanup()
     {
         isActive = false;
@@ -48,8 +108,9 @@ public class P1_Bedroom : Passage {
         // Hide text canvas
         for (int i = 0; i < ui.Length; i++)
             ui[i].SetActive(false);
-        
-        // Hide text
+
+        // Hide call id
+        props[2].SetActive(false);
     }
 
     public override void Initialize(ActiveObject c)
@@ -106,7 +167,7 @@ public class P1_Bedroom : Passage {
             //
             // Initial State - Load Title
             case State.INIT:
-               if(timer.getElapsedSeconds() > 6.0f) {
+               if(timer.getElapsedSeconds() > 5.0f) {
                     text[0].GetComponent<Typewriter>().LoadText("Not\n Alone");
                     cState = State.INIT_2;
                 }
@@ -114,21 +175,28 @@ public class P1_Bedroom : Passage {
             // 
             // Load Subtitle
             case State.INIT_2:
-                if (timer.getElapsedSeconds() > 8.0f)
+                if (timer.getElapsedSeconds() > 7.0f)
                 {
-                    text[1].GetComponent<Typewriter>().LoadText("A hypertext\nadventure game...");
+                    text[1].GetComponent<Typewriter>().LoadText("\n\n\n\n\n\n\nA hypertext\nadventure game...");
                     cState = State.CALL;
                 }
                 break;
             //
             // Phone is ringing
             case State.CALL:
-                if (timer.IsRunning && timer.getElapsedSeconds() > 7.0f) {
+                if (timer.IsRunning && timer.getElapsedSeconds() > 10.5f) {
                     AudioSource phone = props[0].GetComponent<AudioSource>();
                     if (!phone.isPlaying) phone.Play();
                     if (timer.IsRunning) timer.Stop();
                     interactible[0].SetActive(true);
+                    props[2].SetActive(true);
                     // NS - Act on phone
+
+                    // Start T.V. Stream
+                    interactible[3].SetActive(true);
+                    text[0].text = "";
+                    text[1].text = "";
+                    StartCoroutine(TV());
                 }
                 break;
             //
@@ -136,6 +204,7 @@ public class P1_Bedroom : Passage {
             case State.CALL_ANSWERED_1:
                 if(!timer.IsRunning) {
                     timer.Start();
+
                     text[2].GetComponent<Typewriter>().LoadText(
                             "Hi sweetie.\n" +
                             "Hope you’re feeling better.\n"
@@ -236,6 +305,7 @@ public class P1_Bedroom : Passage {
                         case State.CALL_ANSWERED_3: cState = State.CALL_ANSWERED_4; break;
                         case State.CALL_ANSWERED_4:
                             ui[1].SetActive(false);
+                            props[2].SetActive(false);
                             timer.Start();
                             props[1].GetComponent<AudioSource>().Play();
                             cState = State.FOOTSTEPS;
@@ -244,6 +314,14 @@ public class P1_Bedroom : Passage {
                 }
                 break;
             case GameActor.P1_TV:
+                guiText = obj.GetComponent<Text>();
+                guiText.color = Color.red;
+                if (text[1].text != "" && Input.GetKey(KeyCode.Joystick1Button0) || Input.GetMouseButtonDown(0)) {
+                    channel = !channel;
+                    tvVerse = 0;
+                    interactible[3].SetActive(false);
+                }
+                break;
             case GameActor.P1_DOOR:
                 guiText = obj.GetComponent<Text>();
                 guiText.color = Color.red;
