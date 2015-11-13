@@ -204,7 +204,6 @@ public class P1_Bedroom : Passage {
             case State.CALL_ANSWERED_1:
                 if(!timer.IsRunning) {
                     timer.Start();
-
                     text[2].GetComponent<Typewriter>().LoadText(
                             "Hi sweetie.\n" +
                             "Hope you’re feeling better.\n"
@@ -222,7 +221,7 @@ public class P1_Bedroom : Passage {
                             "your sister's recital.\n"
                         );
                 }
-                else if (timer.getElapsedSeconds() > 2.5f)
+                else if (timer.getElapsedSeconds() > 3.0f)
                 {
                     interactible[1].SetActive(true);
                 }
@@ -237,7 +236,7 @@ public class P1_Bedroom : Passage {
                             "spaghetti and meatballs." 
                         );
                 }
-                else if (timer.getElapsedSeconds() > 3.0f)
+                else if (timer.getElapsedSeconds() > 4.5f)
                 {
                     interactible[1].SetActive(true);
                 }
@@ -251,7 +250,7 @@ public class P1_Bedroom : Passage {
                             "Love you!" 
                         );
                 }
-                else if (timer.getElapsedSeconds() > 2.0f)
+                else if (timer.getElapsedSeconds() > 2.5f)
                 {
                     interactible[1].SetActive(true);
                 }
