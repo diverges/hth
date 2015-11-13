@@ -459,7 +459,7 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: -2.75, y: .49000001}
+  m_AnchoredPosition: {x: -2.75, y: -.0399999991}
   m_SizeDelta: {x: 852, y: 829.299988}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &237713261
@@ -474,7 +474,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: .423529416, g: .690196097, b: 1, a: 1}
+  m_Color: {r: .301960796, g: .41568628, b: .847058833, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1045,7 +1045,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: .247591287, g: .268605351, b: .962068975, a: 1}
+  m_Color: {r: .301960796, g: .41568628, b: .847058833, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1471,7 +1471,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: .426470578, g: .691480517, b: 1, a: 1}
+  m_Color: {r: .301960796, g: .41568628, b: .847058833, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2128,7 +2128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: .247591287, g: .268605351, b: .962068975, a: 1}
+  m_Color: {r: .301960796, g: .41568628, b: .847058833, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2307,7 +2307,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: .247591287, g: .268605351, b: .962068975, a: 1}
+  m_Color: {r: .301960796, g: .41568628, b: .847058833, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2750,7 +2750,7 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1378095398}
-  m_LocalRotation: {x: .458082289, y: -.538367569, z: .540525436, w: .456238031}
+  m_LocalRotation: {x: .458082318, y: -.538367629, z: .540525496, w: .456238061}
   m_LocalPosition: {x: 0, y: 0, z: -32.3411255}
   m_LocalScale: {x: .027212264, y: .0272111706, z: .328614205}
   m_Children: []

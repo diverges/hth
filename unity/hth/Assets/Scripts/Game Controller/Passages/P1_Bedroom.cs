@@ -342,7 +342,9 @@ public class P1_Bedroom : Passage {
             case GameActor.P1_TV:
             case GameActor.P1_DOOR:
                 Text guiText = obj.GetComponent<Text>();
-                guiText.color = Color.blue;
+				Color myColor = new Color();
+				ColorUtility.TryParseHtmlString ("#4d6ad8", out myColor);
+				guiText.color = myColor;
                 break;
             default:
                 break;
