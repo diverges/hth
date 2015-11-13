@@ -13,9 +13,7 @@ public class P1_Bedroom : Passage {
         CALL_ANSWERED_2,
         CALL_ANSWERED_3,
         CALL_ANSWERED_4,
-        WAIT_5,
         FOOTSTEPS,
-        END
     };
 
     //
@@ -57,6 +55,7 @@ public class P1_Bedroom : Passage {
     public override void Initialize(ActiveObject c)
     {
         Cleanup();
+        isDone = false;
 
         isActive = true;
         cam = c;
@@ -188,6 +187,13 @@ public class P1_Bedroom : Passage {
                     interactible[1].SetActive(true);
                 }
                 break;
+            //
+            // Wait 5 seconds
+            case State.FOOTSTEPS:
+                if(timer.getElapsedSeconds() > 5.0f) {
+                    interactible[2].SetActive(true);                                     
+                }
+                break;
             // Default - Should not get here
             default:
                 break;
@@ -230,10 +236,19 @@ public class P1_Bedroom : Passage {
                         case State.CALL_ANSWERED_3: cState = State.CALL_ANSWERED_4; break;
                         case State.CALL_ANSWERED_4:
                             ui[1].SetActive(false);
-                            cState = State.END;
+                            timer.Start();
+                            props[1].GetComponent<AudioSource>().Play();
+                            cState = State.FOOTSTEPS;
                             break;
                     } 
                 }
+                break;
+            case GameActor.P1_TV:
+            case GameActor.P1_DOOR:
+                guiText = obj.GetComponent<Text>();
+                guiText.color = Color.red;
+                if (Input.GetKey(KeyCode.Joystick1Button0) || Input.GetMouseButtonDown(0))
+                    isDone = true;
                 break;
             default:
                 break;
@@ -247,9 +262,8 @@ public class P1_Bedroom : Passage {
         {
             case GameActor.P1_ACT_PHONE:
             case GameActor.P1_ACT_CONTINUE:
-            case GameActor.P1_ACT_A:
-            case GameActor.P1_ACT_B:
-            case GameActor.TEXT_1:
+            case GameActor.P1_TV:
+            case GameActor.P1_DOOR:
                 Text guiText = obj.GetComponent<Text>();
                 guiText.color = Color.blue;
                 break;

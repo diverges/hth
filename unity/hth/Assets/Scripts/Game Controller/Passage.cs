@@ -14,6 +14,7 @@ public abstract class Passage : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {}
 
+    protected bool isDone;
     protected ActiveObject cam; // current object being looked at
     protected bool isActive;
     protected Transform activeObject;
@@ -28,5 +29,8 @@ public abstract class Passage : MonoBehaviour {
     protected abstract void UpdateState();
     protected abstract void Act(GameActor objectid, Transform obj);
     protected abstract void Clean(GameActor objectid, Transform obj);
+    public bool IsDone {
+        get { return isDone; }
+    }
 
 }

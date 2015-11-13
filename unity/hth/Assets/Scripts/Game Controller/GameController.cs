@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour {
     // Passages
     public Passage[] passages;
     public ActiveObject cam;
+    public Transform camPos;
 
     int curPassage;
     Passage active = null;
@@ -24,6 +25,11 @@ public class GameController : MonoBehaviour {
             curPassage = 0;
             active = passages[0];
             active.Initialize(cam);
+        }
+
+        if(active.IsDone) {
+            camPos.position = new Vector3(29, 13, 0);
+            camPos.rotation = Quaternion.Euler(new Vector3(0, 90, 0));
         }
         
 	}
