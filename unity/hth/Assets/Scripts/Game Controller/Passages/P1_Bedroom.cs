@@ -46,53 +46,49 @@ public class P1_Bedroom : Passage {
         while(props[0].activeSelf)
         {
             interactible[3].SetActive(true);
-            if (channel)
+            if (!tp.typing)
             {
-                // Food
-                switch (tvVerse)
+                if (channel)
                 {
-                    case 0:
-                        tp.LoadText(" and once you have the\nonions chopped,\nadd them into\nthe sauce");
-                        yield return new WaitForSeconds(8);
-                        break;
-                    case 1:
-                        tp.LoadText(" and cook them until\nthey’re nice and\ncaramelized.");
-                        yield return new WaitForSeconds(8);
-                        break;
+                    // Food
+                    switch (tvVerse)
+                    {
+                        case 0:
+                            tp.LoadText(" and once you have the\nonions chopped,\nadd them into\nthe sauce");
+                            break;
+                        case 1:
+                            tp.LoadText(" and cook them until\nthey’re nice and\ncaramelized.");
+                            break;
+                    }
+                    tvVerse++;
+                    if (tvVerse >= 2) tvVerse = 0;
                 }
-                tvVerse++;
-                if (tvVerse >= 2) tvVerse = 0;
-                
-            }
-            else
-            {
-                // News
-                switch (tvVerse)
+                else
                 {
-                    case 0:
-                        tp.LoadText(" BREAKING\n NEWS We are getting reports\nof a sudden food shortage\nin our neighboring");
-                        yield return new WaitForSeconds(10);
-                        break;
-                    case 1:
-                        tp.LoadText(" town of Springfield. Sources indicate that\nall the food in grocery");
-                        yield return new WaitForSeconds(10);
-                        break;
-                    case 2:
-                        tp.LoadText(" stores and homes suddenly\ndisappeared overnight,\nleaving thousands\n");
-                        yield return new WaitForSeconds(10);
-                        break;
-                    case 3:
-                        tp.LoadText(" of families starving.\nFood shipments are on their way,");
-                        yield return new WaitForSeconds(10);
-                        break;
-                    case 4:
-                        tp.LoadText(" but be prepared\nfor a sudden influx\nof our neighbors\nin our grocery stores.");
-                        yield return new WaitForSeconds(10);
-                        break;
+                    // News
+                    switch (tvVerse)
+                    {
+                        case 0:
+                            tp.LoadText(" BREAKING\n NEWS We are getting reports\nof a sudden food shortage\nin our neighboring");
+                            break;
+                        case 1:
+                            tp.LoadText(" town of Springfield. Sources indicate that\nall the food in grocery");
+                            break;
+                        case 2:
+                            tp.LoadText(" stores and homes suddenly\ndisappeared overnight,\nleaving thousands\n");
+                            break;
+                        case 3:
+                            tp.LoadText(" of families starving.\nFood shipments are on their way,");
+                            break;
+                        case 4:
+                            tp.LoadText(" but be prepared\nfor a sudden influx\nof our neighbors\nin our grocery stores.");
+                            break;
+                    }
+                    tvVerse++;
+                    if (tvVerse >= 5) tvVerse = 0;
                 }
-                tvVerse++;
-                if (tvVerse >= 5) tvVerse = 0;
             }
+            yield return new WaitForSeconds(1.0f);
         }  
     }
 
@@ -271,15 +267,11 @@ public class P1_Bedroom : Passage {
     // When the object is active
     protected override void Act(GameActor objectid, Transform obj)
     {
-        Text guiText;
-
         switch (objectid)
         {
             case GameActor.NONE:
                 break;
             case GameActor.P1_ACT_PHONE:
-                guiText = obj.GetComponent<Text>();
-                guiText.color = Color.red;
                 if (Input.GetKey(KeyCode.Joystick1Button0) || Input.GetMouseButtonDown(0))
                 {
                     // Go to Call State
@@ -291,8 +283,6 @@ public class P1_Bedroom : Passage {
                 }
                 break;
             case GameActor.P1_ACT_CONTINUE:
-                guiText = obj.GetComponent<Text>();
-                guiText.color = Color.red;
                 if (Input.GetKey(KeyCode.Joystick1Button0) || Input.GetMouseButtonDown(0))
                 {
                     // Go to Call State
@@ -313,17 +303,14 @@ public class P1_Bedroom : Passage {
                 }
                 break;
             case GameActor.P1_TV:
-                guiText = obj.GetComponent<Text>();
-                guiText.color = Color.red;
                 if (text[1].text != "" && Input.GetKey(KeyCode.Joystick1Button0) || Input.GetMouseButtonDown(0)) {
                     channel = !channel;
                     tvVerse = 0;
-                    interactible[3].SetActive(false);
+                    text[1].GetComponent<Typewriter>().Clear();
+                    interactible[3].SetActive(false);  
                 }
                 break;
             case GameActor.P1_DOOR:
-                guiText = obj.GetComponent<Text>();
-                guiText.color = Color.red;
                 if (Input.GetKey(KeyCode.Joystick1Button0) || Input.GetMouseButtonDown(0))
                     isDone = true;
                 break;
@@ -341,11 +328,6 @@ public class P1_Bedroom : Passage {
             case GameActor.P1_ACT_CONTINUE:
             case GameActor.P1_TV:
             case GameActor.P1_DOOR:
-                Text guiText = obj.GetComponent<Text>();
-				Color myColor = new Color();
-				ColorUtility.TryParseHtmlString ("#4d6ad8", out myColor);
-				guiText.color = myColor;
-                break;
             default:
                 break;
         }

@@ -11,6 +11,8 @@ public class Typewriter : MonoBehaviour {
 
     public bool typing = false;
 
+    private Coroutine co;
+
 	// Use this for initialization
 	void Start () {
         if (guiText != null)
@@ -20,11 +22,16 @@ public class Typewriter : MonoBehaviour {
         }
 	}
 
+    public void Clear() {
+        StopCoroutine(co);
+        typing = false;
+    }
+
     public void LoadText(string message) {
         typing = true;
         guiText.text = "";
         this.message = message;
-        StartCoroutine(TypeText());
+        co = StartCoroutine(TypeText());
     }
 
     IEnumerator TypeText()

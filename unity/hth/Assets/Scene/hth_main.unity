@@ -971,6 +971,7 @@ GameObject:
   - 114: {fileID: 378226792}
   - 65: {fileID: 378226791}
   - 114: {fileID: 378226790}
+  - 114: {fileID: 378226795}
   m_Layer: 8
   m_Name: Answer Phone
   m_TagString: Untagged
@@ -1073,6 +1074,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 378226788}
+--- !u!114 &378226795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 378226788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff2194ea73c5a0643be2d0796dacd46d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 378226793}
 --- !u!1 &397423898
 GameObject:
   m_ObjectHideFlags: 0
@@ -2068,6 +2081,7 @@ GameObject:
   - 114: {fileID: 958280130}
   - 65: {fileID: 958280129}
   - 114: {fileID: 958280133}
+  - 114: {fileID: 958280134}
   m_Layer: 8
   m_Name: 'Action: Go Outside'
   m_TagString: Untagged
@@ -2082,14 +2096,14 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 958280127}
   m_LocalRotation: {x: 0, y: -.450098723, z: 0, w: -.892978787}
-  m_LocalPosition: {x: 0, y: 0, z: -26.1299992}
+  m_LocalPosition: {x: 0, y: 0, z: -29.1900005}
   m_LocalScale: {x: .0272108112, y: .0272108074, z: .328600794}
   m_Children: []
   m_Father: {fileID: 595327636}
   m_RootOrder: 0
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: -482.980011, y: -304.640015}
+  m_AnchoredPosition: {x: -482.160004, y: -304.640015}
   m_SizeDelta: {x: 518.76001, y: 195.600006}
   m_Pivot: {x: .5, y: .5}
 --- !u!65 &958280129
@@ -2168,6 +2182,18 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: .5}
   m_EffectDistance: {x: 2, y: 2}
   m_UseGraphicAlpha: 1
+--- !u!114 &958280134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 958280127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff2194ea73c5a0643be2d0796dacd46d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 958280131}
 --- !u!1 &1000935911
 GameObject:
   m_ObjectHideFlags: 0
@@ -2247,6 +2273,7 @@ GameObject:
   - 114: {fileID: 1064106041}
   - 65: {fileID: 1064106040}
   - 114: {fileID: 1064106044}
+  - 114: {fileID: 1064106045}
   m_Layer: 8
   m_Name: 'Action: TV'
   m_TagString: Untagged
@@ -2268,7 +2295,7 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: 13.8599997, y: 9.27999973}
+  m_AnchoredPosition: {x: 12.75, y: 15.8699999}
   m_SizeDelta: {x: 518.76001, y: 195.600006}
   m_Pivot: {x: .5, y: .5}
 --- !u!65 &1064106040
@@ -2347,6 +2374,18 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: .5}
   m_EffectDistance: {x: 5, y: -5}
   m_UseGraphicAlpha: 1
+--- !u!114 &1064106045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1064106038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff2194ea73c5a0643be2d0796dacd46d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 1064106042}
 --- !u!1 &1102719053 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 2}
@@ -2735,7 +2774,6 @@ GameObject:
   - 224: {fileID: 1378095399}
   - 222: {fileID: 1378095403}
   - 114: {fileID: 1378095402}
-  - 114: {fileID: 1378095401}
   - 65: {fileID: 1378095400}
   m_Layer: 8
   m_Name: Call Id
@@ -2773,18 +2811,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 324.191559, y: 332.010834, z: -25.747757}
   m_Center: {x: 55.2410965, y: -26.3345089, z: -5.17191458}
---- !u!114 &1378095401
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1378095398}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e00494f4eaa7aa46bb3ae99062a9143, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uID: 1
 --- !u!114 &1378095402
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3242,6 +3268,7 @@ GameObject:
   - 114: {fileID: 1556754568}
   - 114: {fileID: 1556754567}
   - 65: {fileID: 1556754566}
+  - 114: {fileID: 1556754570}
   m_Layer: 8
   m_Name: 'Action: Continue'
   m_TagString: Untagged
@@ -3328,6 +3355,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1556754564}
+--- !u!114 &1556754570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1556754564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff2194ea73c5a0643be2d0796dacd46d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 1556754568}
 --- !u!1 &1597941782 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100002, guid: 126d619cf4daa52469682f85c1378b4a, type: 2}
