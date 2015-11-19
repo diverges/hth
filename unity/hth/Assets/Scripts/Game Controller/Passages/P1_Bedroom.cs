@@ -272,7 +272,7 @@ public class P1_Bedroom : Passage {
             case GameActor.NONE:
                 break;
             case GameActor.P1_ACT_PHONE:
-                if (Input.GetKey(KeyCode.Joystick1Button0) || Input.GetMouseButtonDown(0))
+                if (Input.GetButtonDown("Act"))
                 {
                     // Go to Call State
                     interactible[0].SetActive(false);
@@ -283,7 +283,7 @@ public class P1_Bedroom : Passage {
                 }
                 break;
             case GameActor.P1_ACT_CONTINUE:
-                if (Input.GetKey(KeyCode.Joystick1Button0) || Input.GetMouseButtonDown(0))
+                if (Input.GetButtonDown("Act"))
                 {
                     // Go to Call State
                     interactible[1].SetActive(false);
@@ -303,7 +303,7 @@ public class P1_Bedroom : Passage {
                 }
                 break;
             case GameActor.P1_TV:
-                if (text[1].text != "" && Input.GetKey(KeyCode.Joystick1Button0) || Input.GetMouseButtonDown(0)) {
+                if (text[1].text != "" && Input.GetButtonDown("Act")) {
                     channel = !channel;
                     tvVerse = 0;
                     text[1].GetComponent<Typewriter>().Clear();
@@ -311,7 +311,7 @@ public class P1_Bedroom : Passage {
                 }
                 break;
             case GameActor.P1_DOOR:
-                if (Input.GetKey(KeyCode.Joystick1Button0) || Input.GetMouseButtonDown(0))
+                if (Input.GetButtonDown("Act"))
                     isDone = true;
                 break;
             default:
