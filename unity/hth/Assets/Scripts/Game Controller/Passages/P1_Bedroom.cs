@@ -8,6 +8,7 @@ public class P1_Bedroom : Passage {
     enum State {
         INIT,
         INIT_2,
+        NEWS,
         CALL,
         CALL_ANSWERED_1,
         CALL_ANSWERED_2,
@@ -101,9 +102,6 @@ public class P1_Bedroom : Passage {
             e.SetActive(false); // Hide interactible components
         }
 
-        //TEMP DEBUG
-        interactible[2].SetActive(true);
-
         // Hide text canvas
         for (int i = 0; i < ui.Length; i++)
             ui[i].SetActive(false);
@@ -127,7 +125,7 @@ public class P1_Bedroom : Passage {
         text[0].text = "";
         text[1].text = "";
 
-        timer.Start();
+        text[1].GetComponent<Typewriter>().LoadText(" click\nto\nstart");
     }
 
     // Use this for initialization
@@ -167,7 +165,11 @@ public class P1_Bedroom : Passage {
             //
             // Initial State - Load Title
             case State.INIT:
-               if(timer.getElapsedSeconds() > 5.0f) {
+                if(!timer.IsRunning && Input.GetButtonDown("Act")) {
+                    timer.Start();
+                    text[1].GetComponent<Typewriter>().LoadText("");
+                }
+                if(timer.IsRunning && timer.getElapsedSeconds() > 1.0f) {
                     text[0].GetComponent<Typewriter>().LoadText("Not\n Alone");
                     cState = State.INIT_2;
                 }
@@ -175,28 +177,33 @@ public class P1_Bedroom : Passage {
             // 
             // Load Subtitle
             case State.INIT_2:
-                if (timer.getElapsedSeconds() > 7.0f)
+                if (timer.getElapsedSeconds() > 2.5f)
                 {
                     text[1].GetComponent<Typewriter>().LoadText("\n\n\n\n\n\n\nA hypertext\nadventure game...");
-                    cState = State.CALL;
+                    cState = State.NEWS;
                 }
                 break;
+            case State.NEWS:
+                if (timer.getElapsedSeconds() > 8.0f)
+                {
+                    // Start T.V. Stream
+                    interactible[3].SetActive(true);
+                    text[0].text = "";
+                    text[1].text = "";
+                    StartCoroutine(TV());
+                    cState = State.CALL;
+                }
+                break;  
             //
             // Phone is ringing
             case State.CALL:
-                if (timer.IsRunning && timer.getElapsedSeconds() > 10.5f) {
+                if (timer.IsRunning && timer.getElapsedSeconds() > 14f) {
                     AudioSource phone = props[0].GetComponent<AudioSource>();
                     if (!phone.isPlaying) phone.Play();
                     if (timer.IsRunning) timer.Stop();
                     interactible[0].SetActive(true);
                     props[2].SetActive(true);
                     // NS - Act on phone
-
-                    // Start T.V. Stream
-                    interactible[3].SetActive(true);
-                    text[0].text = "";
-                    text[1].text = "";
-                    StartCoroutine(TV());
                 }
                 break;
             //

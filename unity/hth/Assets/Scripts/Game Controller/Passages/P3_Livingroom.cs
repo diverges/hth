@@ -44,6 +44,13 @@ public class P3_Livingroom : Passage {
                     isDone = true;
                 }
                 break;
+            case GameActor._GO_TO_LIVING_ROOM:
+                if (Input.GetButtonDown("Act"))
+                {
+                    target = GameActor._GO_TO_LIVING_ROOM;
+                    isDone = true;
+                }
+                break;
             default:
                 break;
         }

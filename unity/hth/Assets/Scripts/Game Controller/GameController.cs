@@ -41,7 +41,7 @@ public class GameController : MonoBehaviour {
                     active.Initialize(cam);
                     break;
                 case GameActor._GO_TO_LIVING_ROOM:
-                    camPos.position = new Vector3(110, 22, 185);
+                    camPos.position = new Vector3(110, 22, 215);
                     camPos.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
                     active = passages[2];
                     active.Initialize(cam);
