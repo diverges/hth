@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-public class P2_Hallway : Passage {
+public class P3_Livingroom : Passage {
 
     public override void Cleanup()
     {
@@ -23,10 +23,24 @@ public class P2_Hallway : Passage {
     {
         switch (objectid)
         {
-            case GameActor._GO_TO_LIVING_ROOM:
+            case GameActor._GO_TO_HALLWAY:
                 if (Input.GetButtonDown("Act"))
                 {
                     target = GameActor._GO_TO_LIVING_ROOM;
+                    isDone = true;
+                }
+                break;
+            case GameActor._GO_TO_KITCHEN:
+                if (Input.GetButtonDown("Act"))
+                {
+                    target = GameActor._GO_TO_KITCHEN;
+                    isDone = true;
+                }
+                break;
+            case GameActor._GO_TO_BATHROOM:
+                if (Input.GetButtonDown("Act"))
+                {
+                    target = GameActor._GO_TO_BATHROOM;
                     isDone = true;
                 }
                 break;
@@ -46,14 +60,16 @@ public class P2_Hallway : Passage {
     }
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         curID = GameActor.NONE;
         lastID = GameActor.NONE;
         activeObject = null;
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
         if (isActive)
         {
             // Update Room State

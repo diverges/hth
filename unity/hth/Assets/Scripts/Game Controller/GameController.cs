@@ -28,8 +28,35 @@ public class GameController : MonoBehaviour {
         }
 
         if(active.IsDone) {
-            camPos.position = new Vector3(60, 12, 0);
-            camPos.rotation = Quaternion.Euler(new Vector3(0, 90, 0));
+            switch(active.GetTarget) {
+                case GameActor._GO_TO_BEDROOM:
+                    camPos.position = new Vector3(2, 15, -37);
+                    camPos.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+                    active = passages[0];
+                    break;
+                case GameActor._GO_TO_HALLWAY:
+                    camPos.position = new Vector3(60, 12, 0);
+                    camPos.rotation = Quaternion.Euler(new Vector3(0, 90, 0));
+                    active = passages[1];
+                    active.Initialize(cam);
+                    break;
+                case GameActor._GO_TO_LIVING_ROOM:
+                    camPos.position = new Vector3(110, 22, 185);
+                    camPos.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+                    active = passages[2];
+                    active.Initialize(cam);
+                    break;
+                case GameActor._GO_TO_KITCHEN:
+                    camPos.position = new Vector3(42, 22, 328);
+                    camPos.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+                    break;
+                case GameActor._GO_TO_BATHROOM:
+                    camPos.position = new Vector3(244, 22, 329);
+                    camPos.rotation = Quaternion.Euler(new Vector3(0, 90, 0));
+                    break;
+                default:
+                    break;
+            }   
         }
         
 	}

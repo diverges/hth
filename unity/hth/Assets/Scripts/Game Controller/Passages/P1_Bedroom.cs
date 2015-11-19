@@ -101,6 +101,9 @@ public class P1_Bedroom : Passage {
             e.SetActive(false); // Hide interactible components
         }
 
+        //TEMP DEBUG
+        interactible[2].SetActive(true);
+
         // Hide text canvas
         for (int i = 0; i < ui.Length; i++)
             ui[i].SetActive(false);
@@ -113,6 +116,7 @@ public class P1_Bedroom : Passage {
     {
         Cleanup();
         isDone = false;
+        target = GameActor.NONE;
 
         isActive = true;
         cam = c;
@@ -311,8 +315,10 @@ public class P1_Bedroom : Passage {
                 }
                 break;
             case GameActor.P1_DOOR:
-                if (Input.GetButtonDown("Act"))
+                if (Input.GetButtonDown("Act")) {
+                    target = GameActor._GO_TO_HALLWAY;
                     isDone = true;
+                }  
                 break;
             default:
                 break;
