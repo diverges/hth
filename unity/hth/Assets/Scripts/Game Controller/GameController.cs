@@ -23,15 +23,18 @@ public class GameController : MonoBehaviour {
         // Only one passage for now   
         if(active == null) {
             curPassage = 0;
+            //active = passages[0];
+            //active.Initialize(cam);
+
+            // TEMP - SPAWN ON HALWAY
             active = passages[1];
             active.Initialize(cam);
-
-            // TEMP
             camPos.position = new Vector3(80, 22, 32);
             camPos.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+            
         }
 
-        if(active.IsDone) {
+        if (active.IsDone) {
             switch(active.GetTarget) {
                 case GameActor._GO_TO_BEDROOM:
                     camPos.position = new Vector3(2, 15, -37);

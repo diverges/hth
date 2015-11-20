@@ -220,7 +220,7 @@ public class P1_Bedroom : Passage {
                     timer.Start();
                     text[2].GetComponent<Typewriter>().LoadText(
                             "Hi sweetie.\n" +
-                            "Hope you’re feeling better.\n"
+                            "Hope you’re feeling better.\n", props[4].GetComponent<AudioSource>()
                         );
                 } else if (timer.getElapsedSeconds() > 2.5f) {
                     interactible[1].SetActive(true);
@@ -232,7 +232,7 @@ public class P1_Bedroom : Passage {
                     timer.Start();
                     text[2].GetComponent<Typewriter>().LoadText(
                             "We’re on our way to see\n" +
-                            "your sister's recital.\n"
+                            "your sister's recital.\n", props[4].GetComponent<AudioSource>()
                         );
                 }
                 else if (timer.getElapsedSeconds() > 3.0f)
@@ -247,7 +247,7 @@ public class P1_Bedroom : Passage {
                     text[2].GetComponent<Typewriter>().LoadText(
                             "I left dinner for you in\n" +
                             "the oven, your favorite:\n" +
-                            "spaghetti and meatballs." 
+                            "spaghetti and meatballs." , props[4].GetComponent<AudioSource>()
                         );
                 }
                 else if (timer.getElapsedSeconds() > 4.5f)
@@ -261,7 +261,7 @@ public class P1_Bedroom : Passage {
                     timer.Start();
                     text[2].GetComponent<Typewriter>().LoadText(
                             "We’ll be back later tonight.\n" +
-                            "Love you!" 
+                            "Love you!" , props[4].GetComponent<AudioSource>()
                         );
                 }
                 else if (timer.getElapsedSeconds() > 2.5f)
