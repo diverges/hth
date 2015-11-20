@@ -30,8 +30,6 @@ public class P1_Bedroom : Passage {
     // Scene Interactible
     public GameObject[] interactible;
 
-    int ozy_verse = 0; // ozymandias poem state
-
     //
     // Local Stopwatch
     private Stopwatch timer = new Stopwatch();
@@ -108,6 +106,9 @@ public class P1_Bedroom : Passage {
 
         // Hide call id
         props[2].SetActive(false);
+
+        // Stop Footstep Audio
+        props[1].GetComponent<AudioSource>().Stop();
     }
 
     public override void Initialize(ActiveObject c)
@@ -167,9 +168,11 @@ public class P1_Bedroom : Passage {
             case State.INIT:
                 if(!timer.IsRunning && Input.GetButtonDown("Act")) {
                     timer.Start();
-                    text[1].GetComponent<Typewriter>().LoadText("");
+                    text[1].GetComponent<Typewriter>().Clear();
+                    text[0].text = "";
+                    text[1].text = "";
                 }
-                if(timer.IsRunning && timer.getElapsedSeconds() > 1.0f) {
+                else if(timer.IsRunning && timer.getElapsedSeconds() > 1.0f) {
                     text[0].GetComponent<Typewriter>().LoadText("Not\n Alone");
                     cState = State.INIT_2;
                 }
@@ -177,17 +180,21 @@ public class P1_Bedroom : Passage {
             // 
             // Load Subtitle
             case State.INIT_2:
-                if (timer.getElapsedSeconds() > 2.5f)
+                if ( timer.getElapsedSeconds() > 3.0f  && !text[1].GetComponent<Typewriter>().typing) {
+                    text[1].GetComponent<Typewriter>().Fade(2.5f);
+                    cState = State.NEWS;
+                } 
+                else if (timer.getElapsedSeconds() > 2.5f && !text[1].GetComponent<Typewriter>().typing)
                 {
                     text[1].GetComponent<Typewriter>().LoadText("\n\n\n\n\n\n\nA hypertext\nadventure game...");
-                    cState = State.NEWS;
                 }
                 break;
             case State.NEWS:
-                if (timer.getElapsedSeconds() > 8.0f)
+                if (timer.getElapsedSeconds() > 10.0f)
                 {
                     // Start T.V. Stream
                     interactible[3].SetActive(true);
+                    text[1].GetComponent<Typewriter>().Clear();
                     text[0].text = "";
                     text[1].text = "";
                     StartCoroutine(TV());
@@ -197,7 +204,7 @@ public class P1_Bedroom : Passage {
             //
             // Phone is ringing
             case State.CALL:
-                if (timer.IsRunning && timer.getElapsedSeconds() > 14f) {
+                if (timer.IsRunning && timer.getElapsedSeconds() > 16f) {
                     AudioSource phone = props[0].GetComponent<AudioSource>();
                     if (!phone.isPlaying) phone.Play();
                     if (timer.IsRunning) timer.Stop();

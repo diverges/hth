@@ -23,8 +23,12 @@ public class GameController : MonoBehaviour {
         // Only one passage for now   
         if(active == null) {
             curPassage = 0;
-            active = passages[0];
+            active = passages[1];
             active.Initialize(cam);
+
+            // TEMP
+            camPos.position = new Vector3(80, 22, 32);
+            camPos.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
         }
 
         if(active.IsDone) {
@@ -35,8 +39,9 @@ public class GameController : MonoBehaviour {
                     active = passages[0];
                     break;
                 case GameActor._GO_TO_HALLWAY:
-                    camPos.position = new Vector3(60, 12, 0);
-                    camPos.rotation = Quaternion.Euler(new Vector3(0, 90, 0));
+                    camPos.position = new Vector3(80, 22, 32);
+                    camPos.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+                    active.Cleanup();
                     active = passages[1];
                     active.Initialize(cam);
                     break;

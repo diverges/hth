@@ -4,12 +4,17 @@ using System.Collections;
 public enum GameActor {
     NONE, // denotes null actor
 
-    // Passage 1
+    // Passage 1 - Room
     P1_ACT_PHONE,   
     P1_ACT_CONTINUE, 
     P1_TV,
     P1_DOOR,
 
+    // Passage 2 - Hallway
+    P2_LIGHTS,
+    P2_WINDOW,
+    P2_PICTURE,
+    P2_BROOM,
 
     // Room Transition
     _GO_TO_BEDROOM,
