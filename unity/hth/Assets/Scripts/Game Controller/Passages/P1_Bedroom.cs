@@ -6,14 +6,11 @@ using System;
 public class P1_Bedroom : Passage {
 
     enum State {
+        IDLE, // Default state when waiting for user action
         INIT,
-        INIT_2,
         NEWS,
         CALL,
-        CALL_ANSWERED_1,
-        CALL_ANSWERED_2,
-        CALL_ANSWERED_3,
-        CALL_ANSWERED_4,
+        CALL_ANSWERED,
         FOOTSTEPS,
     };
 
@@ -91,6 +88,132 @@ public class P1_Bedroom : Passage {
         }  
     }
 
+    public float DELAY_TITLE_TEXT = 1.0f;
+    public float DELAY_SUBTITLE_TEXT = 2.5f;
+    public float DELAY_SUBTITLE_TO_NEWS = 4.0f;
+    public float DELAY_FADE_TO_NEWS = 4.0f;
+    public float DELAY_NEWS_TO_CALL = 5.0f;
+    public float DELAY_CALL_RESPONCE_TEXT_1 = 2.5f;
+    public float DELAY_CALL_RESPONCE_TEXT_2 = 3.0f;
+    public float DELAY_CALL_RESPONCE_TEXT_3 = 4.5f;
+    public float DELAY_CALL_RESPONCE_TEXT_4 = 2.5f;
+    public float DELAY_CALL_TO_FOOTSTEPS = 5.0f;
+
+    protected override IEnumerator UpdateState()
+    {
+        while (isActive)
+        {
+            switch (cState)
+            {
+                //  
+                // Idle - Waiting for Player action
+                case State.IDLE:
+                    yield return null;
+                    break;
+                //
+                // Initial State - Load Title
+                case State.INIT:
+                    isWaiting = true;
+                    while (isWaiting)
+                    {
+                        if (Input.GetButtonDown("Act"))
+                        {
+                            isWaiting = false;
+                            text[1].GetComponent<Typewriter>().Clear();
+                            text[0].text = "";
+                            text[1].text = "";
+                        }
+                        yield return new WaitForSeconds(0.01f);
+                    }
+ 
+                   
+                    yield return new WaitForSeconds(DELAY_TITLE_TEXT);
+                    text[0].GetComponent<Typewriter>().LoadText("Not\n Alone");
+
+                    yield return new WaitForSeconds(DELAY_SUBTITLE_TEXT);
+                    text[1].GetComponent<Typewriter>().LoadText("\n\n\n\n\n\n\nA hypertext\nadventure game...");
+
+                    yield return new WaitForSeconds(DELAY_SUBTITLE_TO_NEWS);
+                    text[1].GetComponent<Typewriter>().Fade(2.5f);
+                    cState = State.NEWS;
+
+                    break;
+                case State.NEWS:
+                    yield return new WaitForSeconds(DELAY_FADE_TO_NEWS);
+                    // Start T.V. Stream
+                    interactible[3].SetActive(true);
+                    text[1].GetComponent<Typewriter>().Clear();
+                    text[0].text = "";
+                    text[1].text = "";
+                    StartCoroutine(TV());
+                    cState = State.CALL;
+                    break;
+                //
+                // Phone is ringing
+                case State.CALL:
+                    yield return new WaitForSeconds(DELAY_FADE_TO_NEWS);
+                    AudioSource phone = props[0].GetComponent<AudioSource>();
+                    if (!phone.isPlaying) phone.Play();
+                    if (timer.IsRunning) timer.Stop();
+                    interactible[0].SetActive(true);
+                    props[2].SetActive(true);
+                    // NS - Act on phone
+                    cState = State.IDLE;
+                    break;
+                //
+                // You answered
+                case State.CALL_ANSWERED:
+                    text[2].GetComponent<Typewriter>().LoadText(
+                            "Hi sweetie.\n" +
+                            "Hope you’re feeling better.\n", props[4].GetComponent<AudioSource>());
+                          
+                    yield return new WaitForSeconds(DELAY_CALL_RESPONCE_TEXT_1);
+                    interactible[1].SetActive(true);
+                    yield return StartCoroutine(Stall());
+                    text[2].GetComponent<Typewriter>().LoadText(
+                                "We’re on our way to see\n" +
+                                "your sister's recital.\n", props[4].GetComponent<AudioSource>()
+                            );
+
+                    yield return new WaitForSeconds(DELAY_CALL_RESPONCE_TEXT_2);
+                    interactible[1].SetActive(true);
+                    yield return StartCoroutine(Stall());
+                    text[2].GetComponent<Typewriter>().LoadText(
+                               "I left dinner for you in\n" +
+                               "the oven, your favorite:\n" +
+                               "spaghetti and meatballs.", props[4].GetComponent<AudioSource>()
+                           );
+
+                    yield return new WaitForSeconds(DELAY_CALL_RESPONCE_TEXT_3);
+                    interactible[1].SetActive(true);
+                    yield return StartCoroutine(Stall());
+                    text[2].GetComponent<Typewriter>().LoadText(
+                                                   "We’ll be back later tonight.\n" +
+                                                   "Love you!", props[4].GetComponent<AudioSource>()
+                                               );
+                    yield return new WaitForSeconds(DELAY_CALL_RESPONCE_TEXT_4);
+                    interactible[1].SetActive(true);
+                    yield return StartCoroutine(Stall());
+                    ui[1].SetActive(false);
+                    props[2].SetActive(false);
+                    props[1].GetComponent<AudioSource>().Play();
+                    cState = State.FOOTSTEPS;
+
+                    break;
+                //
+                // Wait 5 seconds
+                case State.FOOTSTEPS:
+                    yield return new WaitForSeconds(DELAY_CALL_TO_FOOTSTEPS);
+                    interactible[2].SetActive(true); 
+                    break;
+                // Default - Should not get here
+                default:
+                    yield return null;
+                    break;
+            }
+        }
+    }
+
     public override void Cleanup()
     {
         isActive = false;
@@ -127,6 +250,9 @@ public class P1_Bedroom : Passage {
         text[1].text = "";
 
         text[1].GetComponent<Typewriter>().LoadText(" click\nto\nstart");
+
+        // Start State Coroutine
+        StartCoroutine(UpdateState());
     }
 
     // Use this for initialization
@@ -139,8 +265,6 @@ public class P1_Bedroom : Passage {
 	// Update is called once per frame
 	void Update () {
         if(isActive) {
-            // Update Room State
-            UpdateState();
 
             // Act Room Events
             curID = cam.GetActiveObjectID();
@@ -160,128 +284,6 @@ public class P1_Bedroom : Passage {
         }
     }
 
-    protected override void UpdateState()
-    {
-        switch (cState) {
-            //
-            // Initial State - Load Title
-            case State.INIT:
-                if(!timer.IsRunning && Input.GetButtonDown("Act")) {
-                    timer.Start();
-                    text[1].GetComponent<Typewriter>().Clear();
-                    text[0].text = "";
-                    text[1].text = "";
-                }
-                else if(timer.IsRunning && timer.getElapsedSeconds() > 1.0f) {
-                    text[0].GetComponent<Typewriter>().LoadText("Not\n Alone");
-                    cState = State.INIT_2;
-                }
-                break;
-            // 
-            // Load Subtitle
-            case State.INIT_2:
-                if ( timer.getElapsedSeconds() > 3.0f  && !text[1].GetComponent<Typewriter>().typing) {
-                    text[1].GetComponent<Typewriter>().Fade(2.5f);
-                    cState = State.NEWS;
-                } 
-                else if (timer.getElapsedSeconds() > 2.5f && !text[1].GetComponent<Typewriter>().typing)
-                {
-                    text[1].GetComponent<Typewriter>().LoadText("\n\n\n\n\n\n\nA hypertext\nadventure game...");
-                }
-                break;
-            case State.NEWS:
-                if (timer.getElapsedSeconds() > 10.0f)
-                {
-                    // Start T.V. Stream
-                    interactible[3].SetActive(true);
-                    text[1].GetComponent<Typewriter>().Clear();
-                    text[0].text = "";
-                    text[1].text = "";
-                    StartCoroutine(TV());
-                    cState = State.CALL;
-                }
-                break;  
-            //
-            // Phone is ringing
-            case State.CALL:
-                if (timer.IsRunning && timer.getElapsedSeconds() > 16f) {
-                    AudioSource phone = props[0].GetComponent<AudioSource>();
-                    if (!phone.isPlaying) phone.Play();
-                    if (timer.IsRunning) timer.Stop();
-                    interactible[0].SetActive(true);
-                    props[2].SetActive(true);
-                    // NS - Act on phone
-                }
-                break;
-            //
-            // You answered
-            case State.CALL_ANSWERED_1:
-                if(!timer.IsRunning) {
-                    timer.Start();
-                    text[2].GetComponent<Typewriter>().LoadText(
-                            "Hi sweetie.\n" +
-                            "Hope you’re feeling better.\n", props[4].GetComponent<AudioSource>()
-                        );
-                } else if (timer.getElapsedSeconds() > 2.5f) {
-                    interactible[1].SetActive(true);
-                }
-                break;
-            case State.CALL_ANSWERED_2:
-                if (!timer.IsRunning)
-                {
-                    timer.Start();
-                    text[2].GetComponent<Typewriter>().LoadText(
-                            "We’re on our way to see\n" +
-                            "your sister's recital.\n", props[4].GetComponent<AudioSource>()
-                        );
-                }
-                else if (timer.getElapsedSeconds() > 3.0f)
-                {
-                    interactible[1].SetActive(true);
-                }
-                break;
-            case State.CALL_ANSWERED_3:
-                if (!timer.IsRunning)
-                {
-                    timer.Start();
-                    text[2].GetComponent<Typewriter>().LoadText(
-                            "I left dinner for you in\n" +
-                            "the oven, your favorite:\n" +
-                            "spaghetti and meatballs." , props[4].GetComponent<AudioSource>()
-                        );
-                }
-                else if (timer.getElapsedSeconds() > 4.5f)
-                {
-                    interactible[1].SetActive(true);
-                }
-                break;
-            case State.CALL_ANSWERED_4:
-                if (!timer.IsRunning)
-                {
-                    timer.Start();
-                    text[2].GetComponent<Typewriter>().LoadText(
-                            "We’ll be back later tonight.\n" +
-                            "Love you!" , props[4].GetComponent<AudioSource>()
-                        );
-                }
-                else if (timer.getElapsedSeconds() > 2.5f)
-                {
-                    interactible[1].SetActive(true);
-                }
-                break;
-            //
-            // Wait 5 seconds
-            case State.FOOTSTEPS:
-                if(timer.getElapsedSeconds() > 5.0f) {
-                    interactible[2].SetActive(true);                                     
-                }
-                break;
-            // Default - Should not get here
-            default:
-                break;
-        }
-    }
-
     // When the object is active
     protected override void Act(GameActor objectid, Transform obj)
     {
@@ -297,7 +299,7 @@ public class P1_Bedroom : Passage {
                     AudioSource phone = props[0].GetComponent<AudioSource>();
                     phone.Stop();
                     ui[1].SetActive(true);
-                    cState = State.CALL_ANSWERED_1;
+                    cState = State.CALL_ANSWERED;
                 }
                 break;
             case GameActor.P1_ACT_CONTINUE:
@@ -305,19 +307,7 @@ public class P1_Bedroom : Passage {
                 {
                     // Go to Call State
                     interactible[1].SetActive(false);
-                    timer.Stop();
-                    switch (cState) {
-                        case State.CALL_ANSWERED_1: cState = State.CALL_ANSWERED_2; break;
-                        case State.CALL_ANSWERED_2: cState = State.CALL_ANSWERED_3; break;
-                        case State.CALL_ANSWERED_3: cState = State.CALL_ANSWERED_4; break;
-                        case State.CALL_ANSWERED_4:
-                            ui[1].SetActive(false);
-                            props[2].SetActive(false);
-                            timer.Start();
-                            props[1].GetComponent<AudioSource>().Play();
-                            cState = State.FOOTSTEPS;
-                            break;
-                    } 
+                    isWaiting = false;
                 }
                 break;
             case GameActor.P1_TV:
@@ -342,15 +332,7 @@ public class P1_Bedroom : Passage {
     // When an object is no longer active
     protected override void Clean(GameActor objectid, Transform obj)
     {
-        switch (objectid)
-        {
-            case GameActor.P1_ACT_PHONE:
-            case GameActor.P1_ACT_CONTINUE:
-            case GameActor.P1_TV:
-            case GameActor.P1_DOOR:
-            default:
-                break;
-        }
+        return;
     }
 
 }

@@ -43,6 +43,22 @@ public class Typewriter : MonoBehaviour {
         co = StartCoroutine(TypeText());
     }
 
+    public void LoadText(string message, float d)
+    {
+        typing = true;
+        guiText.text = "";
+        this.message = message;
+
+        // Reset alpha
+        guiText.material.color = new Color(
+                   guiText.font.material.color.r,
+                   guiText.font.material.color.g,
+                   guiText.font.material.color.b,
+                   1.0f);
+
+        co = StartCoroutine(TypeText(d));
+    }
+
     public void LoadText(string message, AudioSource voice)
     {
         typing = true;
@@ -100,6 +116,17 @@ public class Typewriter : MonoBehaviour {
             guiText.text += letter;
             v.Play();
             yield return new WaitForSeconds(delay);
+        }
+        typing = false;
+    }
+
+    IEnumerator TypeText(float d)
+    {
+        typing = true;
+        foreach (char letter in message.ToCharArray())
+        {
+            guiText.text += letter;
+            yield return new WaitForSeconds(d);
         }
         typing = false;
     }

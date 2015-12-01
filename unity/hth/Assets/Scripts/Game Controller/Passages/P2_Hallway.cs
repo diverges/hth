@@ -7,13 +7,10 @@ public class P2_Hallway : Passage {
 
     enum State
     {
+        IDLE, 
         INIT,
-        INIT_2,
-        INIT_3,
         LIGHT,
-        LIGHT_2,
         WINDOW,
-        WINDOW_2,
         ACTION_WAIT, // fork broom or picture path
         BROOM,
         PICTURE,
@@ -35,11 +32,111 @@ public class P2_Hallway : Passage {
 
     //
     // Local Stopwatch
-    private Stopwatch timer = new Stopwatch();
     private State cState;
 
-    
     private Light lamp;
+
+    //
+    // Local Timing Parmeters
+    public float DELAY_START = 4.0f;
+    public float DELAY_LIGHT_SWITCH = 1.5f;
+    public float DELAY_LIGHT_FLICKER = 3.0f;
+    public float DELAY_LIGHT_FLICKER_2 = 3.0f;
+    public float DELAY_WINDOW_TO_FOOTSTEP = 2.0f;
+    public float DELAY_FOOTSTEP_TO_TEXT = 5.0f;
+
+    protected override IEnumerator UpdateState()
+    {
+        while(isActive) {
+            switch (cState)
+            {
+                //  
+                // Idle - Waiting for Player action
+                case State.IDLE:
+                    yield return null;
+                    break;
+                case State.ACTION_WAIT:
+                    yield return null;
+                    break;
+                //
+                // Room Introduction
+                case State.INIT:
+                    props[1].GetComponent<AudioSource>().Play(); // Wind
+                    props[2].GetComponent<AudioSource>().Stop(); // Stope footstep sound
+
+                    yield return new WaitForSeconds(DELAY_START);                    
+
+                    ui[0].SetActive(true);
+                    text[0].GetComponent<Typewriter>().LoadText("It's dark in the house.\nAnd it feels colder than usual...");
+
+                    yield return StartCoroutine(Stall(text[0].GetComponent<Typewriter>()));
+                    ui[1].SetActive(true);
+                    text[1].GetComponent<Typewriter>().LoadText("Hmm... is it always that\ndark down there?\nLet's get some\nlight in here.");
+
+                    yield return StartCoroutine(Stall(text[1].GetComponent<Typewriter>()));
+                    yield return new WaitForSeconds(DELAY_LIGHT_SWITCH);
+                    interactible[1].SetActive(true);
+                    cState = State.IDLE;
+
+                    break;
+                //
+                // Lights
+                case State.LIGHT:
+                    yield return new WaitForSeconds(DELAY_LIGHT_FLICKER);
+                    ui[1].SetActive(true);
+                    text[1].GetComponent<Typewriter>().LoadText("Umm... nothing?\nWhy is the window open?");
+
+                    yield return new WaitForSeconds(DELAY_LIGHT_FLICKER_2);
+                    ui[0].SetActive(true);
+                    text[0].text = "";
+                    interactible[0].SetActive(true);
+                    cState = State.IDLE;
+
+                    break;
+                //
+                // Window
+                case State.WINDOW:
+                    ui[1].SetActive(false);
+                    text[0].GetComponent<Typewriter>().LoadText("Weird, we don't ever open that window.");
+
+                    yield return new WaitForSeconds(DELAY_WINDOW_TO_FOOTSTEP);
+                    props[0].GetComponent<AudioSource>().Play();
+
+                    yield return new WaitForSeconds(5.0f);
+                    text[0].GetComponent<Typewriter>().LoadText("Is someone outside?");
+
+                    yield return StartCoroutine(Stall(text[0].GetComponent<Typewriter>()));
+                    // Enable possible actions
+                    ui[2].SetActive(true);
+                    ui[3].SetActive(true);
+                    ui[4].SetActive(true);
+
+                    interactible[3].SetActive(true);
+                    interactible[4].GetComponent<Text>().text = "Is someone there?";
+                    interactible[4].SetActive(true);
+                    cState = State.ACTION_WAIT;
+
+                    break;
+                //
+                // Picture
+                case State.PICTURE:
+                    yield return StartCoroutine(Stall(text[0].GetComponent<Typewriter>()));
+                    interactible[4].SetActive(true);
+                    cState = State.IDLE;
+                    break;
+                //
+                // Broom
+                case State.BROOM:
+                    yield return StartCoroutine(Stall(text[2].GetComponent<Typewriter>()));
+                    interactible[4].SetActive(true);
+                    cState = State.IDLE;
+                    break;
+                default:
+                    break;
+            }
+        }
+        yield return null;
+    }
 
     IEnumerator FlickerLamp() {
         props[3].GetComponent<AudioSource>().PlayScheduled(2);
@@ -88,6 +185,9 @@ public class P2_Hallway : Passage {
 
         lamp = props[3].GetComponent<Light>();
         lamp.enabled = false;
+
+        // Start State Coroutine
+        StartCoroutine(UpdateState());
     }
 
     protected override void Act(GameActor objectid, Transform obj)
@@ -174,119 +274,6 @@ public class P2_Hallway : Passage {
         return;
     }
 
-    protected override void UpdateState()
-    {
-        switch(cState) {
-            //
-            // Room Introduction
-            case State.INIT:
-                if (!timer.IsRunning)
-                {
-                    timer.Start();
-                    props[1].GetComponent<AudioSource>().Play();
-                    props[2].GetComponent<AudioSource>().Stop();
-                } 
-                else if (timer.getElapsedSeconds() > 4.0f)
-                {
-                    timer.Stop();
-                    ui[0].SetActive(true);
-                    text[0].GetComponent<Typewriter>().LoadText("It's dark in the house.\nAnd it feels colder than usual...");
-                    cState = State.INIT_2;
-                }
-                break;
-            case State.INIT_2:
-                if (!text[0].GetComponent<Typewriter>().typing) 
-                {
-                    ui[1].SetActive(true);
-                    text[1].GetComponent<Typewriter>().LoadText("Hmm... is it always that\ndark down there?\nLet's get some\nlight in here.");
-                    cState = State.INIT_3;
-                }
-                break;
-            case State.INIT_3:
-                if (!timer.IsRunning && !text[1].GetComponent<Typewriter>().typing)
-                {
-                    timer.Start();
-                } else if(timer.IsRunning && timer.getElapsedSeconds() > 1.5f) {
-                    timer.Stop();
-                    interactible[1].SetActive(true);
-                }
-                break;
-            //
-            // Lights
-            case State.LIGHT:
-                // TODO: Light flicker
-                if (!timer.IsRunning) timer.Start();
-                else if (timer.getElapsedSeconds() > 3.0f)
-                {
-                    ui[1].SetActive(true);
-                    text[1].GetComponent<Typewriter>().LoadText("Umm... nothing?\nWhy is the window open?");
-                    cState = State.LIGHT_2;
-                }
-                break;
-            case State.LIGHT_2:
-                if(timer.IsRunning && timer.getElapsedSeconds() > 6.0f) {
-                    timer.Stop();
-                    ui[0].SetActive(true);
-                    text[0].text = "";
-                    interactible[0].SetActive(true);
-                }
-                break;
-            //
-            // Window
-            case State.WINDOW:
-                if (!timer.IsRunning) {
-                    ui[1].SetActive(false);
-                    timer.Start();
-                    text[0].GetComponent<Typewriter>().LoadText("Weird, we don't ever open that window.");
-                } else if(timer.getElapsedSeconds() > 2.0f) {
-                    // TODO: Play footstep sound
-                    props[0].GetComponent<AudioSource>().Play();
-                    cState = State.WINDOW_2;
-                }
-                break;
-            case State.WINDOW_2:
-                if(timer.getElapsedSeconds() > 6.0f) {
-                    text[0].GetComponent<Typewriter>().LoadText("Is someone outside?");
-
-                   
-                    cState = State.ACTION_WAIT;
-                }
-                break;
-            case State.ACTION_WAIT:
-                if(timer.IsRunning && !text[0].GetComponent<Typewriter>().typing) {
-                    timer.Stop();
-
-                    // Enable possible actions
-                    ui[2].SetActive(true);
-                    ui[3].SetActive(true);
-                    ui[4].SetActive(true);
-
-                    interactible[3].SetActive(true);
-                    interactible[4].GetComponent<Text>().text = "Is someone there?";
-                    interactible[4].SetActive(true);
-                }
-                break;
-            //
-            // Picture
-            case State.PICTURE:
-                if (!text[0].GetComponent<Typewriter>().typing) {
-                    interactible[4].SetActive(true);
-                }
-                break;
-            //
-            // Broom
-            case State.BROOM:
-                if (!text[2].GetComponent<Typewriter>().typing)
-                {
-                    interactible[4].SetActive(true);
-                }
-                break;
-
-            default:
-                break;
-        }
-    }
-
     // Use this for initialization
     void Start () {
         curID = GameActor.NONE;
@@ -299,7 +286,7 @@ public class P2_Hallway : Passage {
         if (isActive)
         {
             // Update Room State
-            UpdateState();
+            //UpdateState();
 
             // Act Room Events
             curID = cam.GetActiveObjectID();
@@ -314,8 +301,6 @@ public class P2_Hallway : Passage {
                 activeObject = cam.GetActiveObject();
                 lastID = curID;
             }
-
-            if (timer.IsRunning) timer.Update();
         }
     }
 
