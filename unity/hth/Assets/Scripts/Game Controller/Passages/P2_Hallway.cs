@@ -97,6 +97,9 @@ public class P2_Hallway : Passage {
                     yield return StartCoroutine(Stall(text[1].GetComponent<Typewriter>()));
                     text[1].GetComponent<Typewriter>().LoadText("Why is the window open?");
 
+                    interactible[3].SetActive(true);
+                    ui[3].SetActive(true);
+
                     ui[0].SetActive(true);
                     text[0].text = "";
                     interactible[0].SetActive(true);
@@ -120,10 +123,8 @@ public class P2_Hallway : Passage {
                     yield return StartCoroutine(Stall(text[0].GetComponent<Typewriter>()));
                     // Enable possible actions
                     ui[2].SetActive(true);
-                    ui[3].SetActive(true);
                     ui[4].SetActive(true);
 
-                    interactible[3].SetActive(true);
                     interactible[4].GetComponent<Text>().text = "Is someone there?";
                     interactible[4].SetActive(true);
                     cState = State.ACTION_WAIT;
@@ -222,13 +223,12 @@ public class P2_Hallway : Passage {
                 else if (cState == State.IDLE && Input.GetButtonDown("Act"))
                 {
                     props[1].GetComponent<AudioSource>().Stop();
-                    props[2].GetComponent<AudioSource>().Play();
                     interactible[0].SetActive(false);
                     cState = State.WINDOW;
                 }
                 break;
             case GameActor.P2_PICTURE:
-                if (cState == State.ACTION_WAIT && !text[3].GetComponent<Typewriter>().typing)
+                if (text[3].GetComponent<Text>().text.Length == 0)
                 {
                     interactible[3].SetActive(false);
                     text[3].GetComponent<Typewriter>().LoadText("A happy looking family,\ncrowded around a dinner table.\nEveryone's smiling.");

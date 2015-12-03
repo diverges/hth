@@ -900,7 +900,7 @@ RectTransform:
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
   m_AnchoredPosition: {x: -.149839997, y: -.280000001}
-  m_SizeDelta: {x: 2398.61011, y: 850.299988}
+  m_SizeDelta: {x: 3132, y: 1159}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &108006152
 MonoBehaviour:
@@ -10102,6 +10102,7 @@ MonoBehaviour:
   - {fileID: 1378095398}
   - {fileID: 1908042401}
   - {fileID: 108006150}
+  - {fileID: 1416604177}
   ui:
   - {fileID: 397423898}
   - {fileID: 889839101}
@@ -10119,10 +10120,8 @@ MonoBehaviour:
   DELAY_SUBTITLE_TO_NEWS: 4
   DELAY_FADE_TO_NEWS: 4
   DELAY_NEWS_TO_CALL: 5
-  DELAY_CALL_RESPONCE_TEXT_1: 2.5
-  DELAY_CALL_RESPONCE_TEXT_2: 3
-  DELAY_CALL_RESPONCE_TEXT_3: 4.5
-  DELAY_CALL_RESPONCE_TEXT_4: 2.5
+  DELAY_MOM_TALK: 1
+  DELAY_CALL_TO_MUSIC: 2
   DELAY_CALL_TO_FOOTSTEPS: 5
 --- !u!4 &1251458529
 Transform:
@@ -12694,15 +12693,15 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1556754564}
   m_LocalRotation: {x: 0, y: .00366487494, z: 0, w: -.999993324}
-  m_LocalPosition: {x: 0, y: 0, z: 8.76000023}
+  m_LocalPosition: {x: 0, y: 0, z: 8.80000019}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 617098289}
   m_RootOrder: 0
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: 69, y: -22}
-  m_SizeDelta: {x: 518.76001, y: 195.600006}
+  m_AnchoredPosition: {x: 578, y: -22}
+  m_SizeDelta: {x: 989.900024, y: 195.600006}
   m_Pivot: {x: .5, y: .5}
 --- !u!65 &1556754566
 BoxCollider:
@@ -12715,7 +12714,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 479.750763, y: 444.657715, z: -32.9062729}
-  m_Center: {x: 29.8054142, y: -34.4344788, z: -7.48974991}
+  m_Center: {x: -272.119995, y: -34.4344788, z: -7.48974991}
 --- !u!114 &1556754567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12754,7 +12753,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 1
+    m_Alignment: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0

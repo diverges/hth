@@ -89,6 +89,20 @@ public class Typewriter : MonoBehaviour {
         }
     }
 
+    public void AppendText(string message, AudioSource v, float d)
+    {
+        if (typing)
+        {
+            this.type_queue.Enqueue(TypeText(message, v, d));
+        }
+        else
+        {
+            typing = true;
+            this.message = message;
+            co = StartCoroutine(TypeText(message, v, d));
+        }
+    }
+
     public void Fade(float duration) {
         fading = true;
         co = StartCoroutine(FadeOut(duration));
@@ -142,6 +156,19 @@ public class Typewriter : MonoBehaviour {
         foreach (char letter in message.ToCharArray())
         {
             guiText.text += letter;
+            yield return new WaitForSeconds(d);
+        }
+        if (type_queue.Count != 0) yield return StartCoroutine(type_queue.Dequeue());
+        typing = false;
+    }
+
+    IEnumerator TypeText(string message, AudioSource v, float d)
+    {
+        typing = true;
+        foreach (char letter in message.ToCharArray())
+        {
+            guiText.text += letter;
+            v.Play();
             yield return new WaitForSeconds(d);
         }
         if (type_queue.Count != 0) yield return StartCoroutine(type_queue.Dequeue());

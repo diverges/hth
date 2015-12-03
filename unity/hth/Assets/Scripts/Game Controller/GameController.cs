@@ -35,7 +35,7 @@ public class GameController : MonoBehaviour {
             //LoadPassage(0);
 
             // TEMP - SPAWN ON HALWAY
-            LoadPassage(2, CameraPos.LIVING_ROOM);
+            LoadPassage(1, CameraPos.HALLWAY);
         }
 
         if (active.IsDone) {

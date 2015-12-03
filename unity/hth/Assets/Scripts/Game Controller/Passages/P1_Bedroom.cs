@@ -11,6 +11,7 @@ public class P1_Bedroom : Passage {
         NEWS,
         CALL,
         CALL_ANSWERED,
+        CALL_EXPIRED,
         FOOTSTEPS,
     };
 
@@ -93,10 +94,8 @@ public class P1_Bedroom : Passage {
     public float DELAY_SUBTITLE_TO_NEWS = 4.0f;
     public float DELAY_FADE_TO_NEWS = 4.0f;
     public float DELAY_NEWS_TO_CALL = 5.0f;
-    public float DELAY_CALL_RESPONCE_TEXT_1 = 2.5f;
-    public float DELAY_CALL_RESPONCE_TEXT_2 = 3.0f;
-    public float DELAY_CALL_RESPONCE_TEXT_3 = 4.5f;
-    public float DELAY_CALL_RESPONCE_TEXT_4 = 2.5f;
+    public float DELAY_MOM_TALK = 1.5f;
+    public float DELAY_CALL_TO_MUSIC = 2.0f;
     public float DELAY_CALL_TO_FOOTSTEPS = 5.0f;
 
     protected override IEnumerator UpdateState()
@@ -163,47 +162,93 @@ public class P1_Bedroom : Passage {
                 //
                 // You answered
                 case State.CALL_ANSWERED:
-                    text[2].GetComponent<Typewriter>().LoadText(
-                            "Hi sweetie.\n" +
-                            "Hope you’re feeling better.\n", props[4].GetComponent<AudioSource>());
-                          
-                    yield return new WaitForSeconds(DELAY_CALL_RESPONCE_TEXT_1);
-                    interactible[1].SetActive(true);
-                    yield return StartCoroutine(Stall());
-                    text[2].GetComponent<Typewriter>().LoadText(
-                                "We’re on our way to see\n" +
-                                "your sister's recital.\n", props[4].GetComponent<AudioSource>()
-                            );
+                    text[2].GetComponent<Typewriter>().AppendText("Hi sweetie.\n", 
+                        props[4].GetComponent<AudioSource>(), 0.05f);
+                    text[2].GetComponent<Typewriter>().AppendText("Hope you’re feeling better.\n", 
+                        props[4].GetComponent<AudioSource>(), 0.08f);
 
-                    yield return new WaitForSeconds(DELAY_CALL_RESPONCE_TEXT_2);
+                    yield return StartCoroutine(Stall(text[2].GetComponent<Typewriter>()));
                     interactible[1].SetActive(true);
                     yield return StartCoroutine(Stall());
-                    text[2].GetComponent<Typewriter>().LoadText(
-                               "I left dinner for you in\n" +
-                               "the oven, your favorite:\n" +
-                               "pizza.", props[4].GetComponent<AudioSource>()
-                           );
 
-                    yield return new WaitForSeconds(DELAY_CALL_RESPONCE_TEXT_3);
+
+                    text[2].GetComponent<Typewriter>().LoadText(
+                        "We’re on our way to see\n" +
+                        "your sister's recital.\n", props[4].GetComponent<AudioSource>()
+                    );
+
+                    yield return StartCoroutine(Stall(text[2].GetComponent<Typewriter>()));
                     interactible[1].SetActive(true);
                     yield return StartCoroutine(Stall());
                     text[2].GetComponent<Typewriter>().LoadText(
-                                                   "We’ll be back later tonight.\n" +
-                                                   "Love you!", props[4].GetComponent<AudioSource>()
-                                               );
-                    yield return new WaitForSeconds(DELAY_CALL_RESPONCE_TEXT_4);
+                        "I left dinner for you in\n" +
+                        "the oven, your favorite:"
+                        , props[4].GetComponent<AudioSource>()
+                    );
+                    text[2].GetComponent<Typewriter>().AppendText(
+                        " \n", props[4].GetComponent<AudioSource>(), 1.0f
+                    );
+                    text[2].GetComponent<Typewriter>().AppendText(
+                        "pizza.", props[4].GetComponent<AudioSource>(), 0.10f
+                    );
+
+                    yield return StartCoroutine(Stall(text[2].GetComponent<Typewriter>()));
                     interactible[1].SetActive(true);
                     yield return StartCoroutine(Stall());
-                    ui[1].SetActive(false);
-                    props[2].SetActive(false);
-                    props[1].GetComponent<AudioSource>().Play();
+                    text[2].GetComponent<Typewriter>().LoadText(
+                        "We’ll be back later tonight.\n" +
+                        "Don't forget to do", props[4].GetComponent<AudioSource>()
+                    );
+                    yield return StartCoroutine(Stall(text[2].GetComponent<Typewriter>()));
+                    yield return new WaitForSeconds(DELAY_MOM_TALK);
+
+                    cState = State.CALL_EXPIRED;
+
+                    break;
+                case State.CALL_EXPIRED:
+                    text[2].GetComponent<Typewriter>().LoadText(
+                                            "your math homework tonight!\n" +
+                                            "And take your hamper to the laundry room,", props[4].GetComponent<AudioSource>()
+                                        );
+                    yield return StartCoroutine(Stall(text[2].GetComponent<Typewriter>()));
+                    yield return new WaitForSeconds(DELAY_MOM_TALK);
+                    interactible[1].GetComponent<Text>().text = "Mom, no more...";
+                    interactible[1].SetActive(true);
+
+                    text[2].GetComponent<Typewriter>().LoadText(
+                                            "I'm doing laundry tonight.\n" +
+                                            "Separate your darks from your\n" + 
+                                            "lights this time.", props[4].GetComponent<AudioSource>()
+                                        );
+                    yield return StartCoroutine(Stall(text[2].GetComponent<Typewriter>()));
+                    yield return new WaitForSeconds(DELAY_MOM_TALK);
+
+                    text[2].GetComponent<Typewriter>().LoadText(
+                                            "We don't want to turn\n" +
+                                            "another favorite shirt pink again,", props[4].GetComponent<AudioSource>()
+                                        );
+                    yield return StartCoroutine(Stall(text[2].GetComponent<Typewriter>()));
+                    yield return new WaitForSeconds(DELAY_MOM_TALK);
+
+                    text[2].GetComponent<Typewriter>().LoadText(
+                                            "now do we? Love you!\n" +
+                                            "Bye!", props[4].GetComponent<AudioSource>()
+                                        );
+                    yield return StartCoroutine(Stall(text[2].GetComponent<Typewriter>()));
+                    yield return new WaitForSeconds(DELAY_MOM_TALK);
+
+
+                    props[2].SetActive(false);                    
                     cState = State.FOOTSTEPS;
 
                     break;
                 //
                 // Wait 5 seconds
                 case State.FOOTSTEPS:
-                    yield return new WaitForSeconds(DELAY_CALL_TO_FOOTSTEPS);
+                    ui[1].SetActive(false);
+                    props[1].GetComponent<AudioSource>().Play();
+                    yield return new WaitForSeconds(DELAY_CALL_TO_MUSIC);
+                    props[5].GetComponent<AudioSource>().Play();
                     interactible[2].SetActive(true); 
                     break;
                 // Default - Should not get here
@@ -306,8 +351,12 @@ public class P1_Bedroom : Passage {
                 if (Input.GetButtonDown("Act"))
                 {
                     // Go to Call State
-                    interactible[1].SetActive(false);
-                    isWaiting = false;
+                    if (cState == State.CALL_ANSWERED) {
+                        interactible[1].SetActive(false);
+                        isWaiting = false;
+                    } else if (cState == State.CALL_EXPIRED) {
+                        cState = State.FOOTSTEPS;
+                    }
                 }
                 break;
             case GameActor.P1_TV:
