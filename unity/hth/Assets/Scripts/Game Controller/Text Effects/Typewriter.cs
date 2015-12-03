@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class Typewriter : MonoBehaviour {
 
     public float delay = 0.2f;
     public string message = "";
+    private Queue<IEnumerator> type_queue;
 
     public Text guiText;
 
@@ -21,6 +23,7 @@ public class Typewriter : MonoBehaviour {
             message = guiText.text;
             guiText.text = "";
         }
+        type_queue = new Queue<IEnumerator>();
 	}
 
     public void Clear() {
@@ -56,7 +59,7 @@ public class Typewriter : MonoBehaviour {
                    guiText.font.material.color.b,
                    1.0f);
 
-        co = StartCoroutine(TypeText(d));
+        co = StartCoroutine(TypeText(message, d));
     }
 
     public void LoadText(string message, AudioSource voice)
@@ -73,6 +76,17 @@ public class Typewriter : MonoBehaviour {
                    1.0f);
 
         co = StartCoroutine(TypeText(voice));
+    }
+
+    public void AppendText(string message, float d)
+    {
+        if(typing) {
+            this.type_queue.Enqueue(TypeText(message, d));
+        } else { 
+            typing = true;
+            this.message = message;
+            co = StartCoroutine(TypeText(message, d));
+        }
     }
 
     public void Fade(float duration) {
@@ -105,6 +119,7 @@ public class Typewriter : MonoBehaviour {
             guiText.text += letter;
             yield return new WaitForSeconds (delay);
         }
+        if (type_queue.Count != 0) yield return StartCoroutine(type_queue.Dequeue());
         typing = false;
     }
 
@@ -117,10 +132,11 @@ public class Typewriter : MonoBehaviour {
             v.Play();
             yield return new WaitForSeconds(delay);
         }
+        if (type_queue.Count != 0) yield return StartCoroutine(type_queue.Dequeue());
         typing = false;
     }
 
-    IEnumerator TypeText(float d)
+    IEnumerator TypeText(string message, float d)
     {
         typing = true;
         foreach (char letter in message.ToCharArray())
@@ -128,6 +144,7 @@ public class Typewriter : MonoBehaviour {
             guiText.text += letter;
             yield return new WaitForSeconds(d);
         }
+        if (type_queue.Count != 0) yield return StartCoroutine(type_queue.Dequeue());
         typing = false;
     }
 }

@@ -181,7 +181,7 @@ public class P1_Bedroom : Passage {
                     text[2].GetComponent<Typewriter>().LoadText(
                                "I left dinner for you in\n" +
                                "the oven, your favorite:\n" +
-                               "spaghetti and meatballs.", props[4].GetComponent<AudioSource>()
+                               "pizza.", props[4].GetComponent<AudioSource>()
                            );
 
                     yield return new WaitForSeconds(DELAY_CALL_RESPONCE_TEXT_3);

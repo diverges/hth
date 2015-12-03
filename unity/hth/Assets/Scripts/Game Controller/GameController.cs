@@ -32,10 +32,10 @@ public class GameController : MonoBehaviour {
         // Nothing here
         // Only one passage for now   
         if(active == null) {
-            LoadPassage(0);
+            //LoadPassage(0);
 
             // TEMP - SPAWN ON HALWAY
-            //LoadPassage(3, CameraPos.KITCHEN);
+            LoadPassage(2, CameraPos.LIVING_ROOM);
         }
 
         if (active.IsDone) {

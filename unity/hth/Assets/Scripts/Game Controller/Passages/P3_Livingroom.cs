@@ -32,7 +32,7 @@ public class P3_Livingroom : Passage {
     // Local Stopwatch
     private State cState;
 
-    public float DELAY_START = 20.0f;
+    public float DELAY_START = 5.0f;
     protected override IEnumerator UpdateState()
     {
         while (isActive)
@@ -48,8 +48,8 @@ public class P3_Livingroom : Passage {
                 // Initial State - Load Title
                 case State.INIT:
                     yield return new WaitForSeconds(DELAY_START);
-                    interactible[0].GetComponent<Text>().text = "Crumbs?";
-                    interactible[1].GetComponent<Text>().text = "What the...";
+                    interactible[0].GetComponent<Text>().text = "";
+                    interactible[1].GetComponent<Text>().text = "";
                     interactible[0].SetActive(true);
                     interactible[1].SetActive(true);
                     cState = State.IDLE;
@@ -99,6 +99,7 @@ public class P3_Livingroom : Passage {
     private bool isTVOn = false;
     IEnumerator TV() {
         isTVOn = true;
+        props[1].SetActive(true);
         Typewriter tp = text[0].GetComponent<Typewriter>();
         while(isActive) {
             tp.LoadText("On this day in history, a competitive eater named Tony Baloney was reported dead");
@@ -143,6 +144,10 @@ public class P3_Livingroom : Passage {
         for (int i = 0; i < ui.Length; i++)
             ui[i].SetActive(false);
 
+        // Hide text canvas
+        for (int i = 0; i < text.Length; i++)
+            text[i].text = "";
+
     }
 
     public override void Initialize(ActiveObject c)
@@ -168,25 +173,33 @@ public class P3_Livingroom : Passage {
         switch (objectid)
         {
             case GameActor.P3_CRUMBS:
-                if (Input.GetButtonDown("Act"))
+                if (cState == State.IDLE && !text[1].GetComponent<Typewriter>().typing)
                 {
                     interactible[0].SetActive(false);
-                    text[1].GetComponent<Typewriter>().LoadText("These crumbs look fresh...\nWhere do they lead to?");
+                    text[1].GetComponent<Typewriter>().LoadText("These crumbs look fresh");
+                    text[1].GetComponent<Typewriter>().AppendText(". . . \n", 0.5f);
+                    text[1].GetComponent<Typewriter>().AppendText("Where do they lead to?", 0.08f);
                     cState = State.BATHROOM;
                 }
                 break;
             case GameActor.P3_COUCH:
-                if (Input.GetButtonDown("Act"))
+                if ((cState == State.IDLE || cState == State.BATHROOM) && !text[2].GetComponent<Typewriter>().typing)
                 {
                     interactible[1].SetActive(false);
-                    text[2].GetComponent<Typewriter>().LoadText("Looks like something tried to\ntake a bite out of this chair.\nIt's metal. Mustn't have\nbeen too bright...");
+                    text[2].GetComponent<Typewriter>().LoadText("Looks like something tried to\ntake a bite out of this chair.\n");
+                    text[2].GetComponent<Typewriter>().AppendText(". . .\n", 0.8f);
+                    text[2].GetComponent<Typewriter>().AppendText("It's metal.\n", 0.1f);
+                    text[2].GetComponent<Typewriter>().AppendText("Mustn't have been too bright...", 0.08f);
                 }
                 break;
             //
             // Handle Search
             // active objects when searching for handle
             case GameActor.P3_K_TRASH:
-                if (Input.GetButtonDown("Act"))
+                if(interactible[9].GetComponent<Text>().text.Length == 0) {
+                    interactible[9].GetComponent<Typewriter>().LoadText("Maybe, it's in the trash...");
+                }
+                else if (Input.GetButtonDown("Act"))
                 {
                     interactible[9].SetActive(false);
                     text[6].GetComponent<Typewriter>().LoadText("Nothing here...");
@@ -198,7 +211,11 @@ public class P3_Livingroom : Passage {
                 }
                 break;
             case GameActor.P3_K_FRIDGE:
-                if (Input.GetButtonDown("Act"))
+                if (interactible[8].GetComponent<Text>().text.Length == 0)
+                {
+                    interactible[8].GetComponent<Typewriter>().LoadText("Maybe, it's in the fridge...");
+                }
+                else if (Input.GetButtonDown("Act"))
                 {
                     interactible[8].SetActive(false);
                     text[5].GetComponent<Typewriter>().LoadText("Nothing...\nMom needs to buy groceries.");
@@ -210,7 +227,11 @@ public class P3_Livingroom : Passage {
                 }
                 break;
             case GameActor.P3_L_SHELVES:
-                if (Input.GetButtonDown("Act"))
+                if (interactible[10].GetComponent<Text>().text.Length == 0)
+                {
+                    interactible[10].GetComponent<Typewriter>().LoadText("Can it be\nhere?");
+                }
+                else if (Input.GetButtonDown("Act"))
                 {
                     interactible[10].SetActive(false);
                     text[7].GetComponent<Typewriter>().LoadText("Lots of books,\nbut no handle...");
@@ -222,7 +243,11 @@ public class P3_Livingroom : Passage {
                 }
                 break;
             case GameActor.P3_L_TRASH:
-                if (Input.GetButtonDown("Act"))
+                if (interactible[11].GetComponent<Text>().text.Length == 0)
+                {
+                    interactible[11].GetComponent<Typewriter>().LoadText("In here?");
+                }
+                else if (Input.GetButtonDown("Act"))
                 {
                     interactible[11].SetActive(false);
                     text[8].GetComponent<Typewriter>().LoadText("Nothing but trash here...");
