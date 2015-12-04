@@ -215,6 +215,7 @@ public class P1_Bedroom : Passage {
                     interactible[1].GetComponent<Text>().text = "Mom, no more...";
                     interactible[1].SetActive(true);
 
+                    if (cState == State.FOOTSTEPS) break;
                     text[2].GetComponent<Typewriter>().LoadText(
                                             "I'm doing laundry tonight.\n" +
                                             "Separate your darks from your\n" + 
@@ -223,6 +224,7 @@ public class P1_Bedroom : Passage {
                     yield return StartCoroutine(Stall(text[2].GetComponent<Typewriter>()));
                     yield return new WaitForSeconds(DELAY_MOM_TALK);
 
+                    if (cState == State.FOOTSTEPS) break;
                     text[2].GetComponent<Typewriter>().LoadText(
                                             "We don't want to turn\n" +
                                             "another favorite shirt pink again,", props[4].GetComponent<AudioSource>()
@@ -230,6 +232,7 @@ public class P1_Bedroom : Passage {
                     yield return StartCoroutine(Stall(text[2].GetComponent<Typewriter>()));
                     yield return new WaitForSeconds(DELAY_MOM_TALK);
 
+                    if (cState == State.FOOTSTEPS) break;
                     text[2].GetComponent<Typewriter>().LoadText(
                                             "now do we? Love you!\n" +
                                             "Bye!", props[4].GetComponent<AudioSource>()
@@ -249,7 +252,8 @@ public class P1_Bedroom : Passage {
                     props[1].GetComponent<AudioSource>().Play();
                     yield return new WaitForSeconds(DELAY_CALL_TO_MUSIC);
                     props[5].GetComponent<AudioSource>().Play();
-                    interactible[2].SetActive(true); 
+                    interactible[2].SetActive(true);
+                    cState = State.IDLE;
                     break;
                 // Default - Should not get here
                 default:
@@ -350,11 +354,14 @@ public class P1_Bedroom : Passage {
             case GameActor.P1_ACT_CONTINUE:
                 if (Input.GetButtonDown("Act"))
                 {
+                    Debug.Log(cState);
                     // Go to Call State
                     if (cState == State.CALL_ANSWERED) {
                         interactible[1].SetActive(false);
                         isWaiting = false;
                     } else if (cState == State.CALL_EXPIRED) {
+                        interactible[1].SetActive(false);
+                        isWaiting = false;
                         cState = State.FOOTSTEPS;
                     }
                 }
