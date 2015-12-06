@@ -25,7 +25,7 @@ RenderSettings:
   m_AmbientGroundColor: {r: .0469999984, g: .0430000015, b: .0350000001, a: 1}
   m_AmbientIntensity: 2.5
   m_AmbientMode: 0
-  m_SkyboxMaterial: {fileID: 2100000, guid: 88ec9a13802800449aaf825aff3aadc7, type: 2}
+  m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: .5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -6462,7 +6462,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 744610069}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -337.579987, y: -298.920013, z: 251.740005}
+  m_LocalPosition: {x: -337.579987, y: -302.200012, z: 251.740005}
   m_LocalScale: {x: 7.30999994, y: -4.19999981, z: 5.80000019}
   m_Children: []
   m_Father: {fileID: 1651803650}
@@ -6549,7 +6549,7 @@ MonoBehaviour:
   - {fileID: 1424538708}
   - {fileID: 962721165}
   - {fileID: 1025624923}
-  DELAY_START: 5
+  DELAY_START: 2
   DELAY_OPTIONS: 2
 --- !u!4 &758108110
 Transform:
@@ -10932,14 +10932,14 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1214862092}
   m_LocalRotation: {x: 0, y: -.368530273, z: 0, w: .929615796}
-  m_LocalPosition: {x: 0, y: 0, z: 539.5}
+  m_LocalPosition: {x: 0, y: 0, z: 559.799988}
   m_LocalScale: {x: .0285815094, y: .0285815094, z: 1}
   m_Children: []
   m_Father: {fileID: 2138046989}
   m_RootOrder: 0
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: -1075.09998, y: -622.200012}
+  m_AnchoredPosition: {x: -1075.09998, y: -628.599976}
   m_SizeDelta: {x: 2112.87012, y: 1491}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1214862094
@@ -10989,7 +10989,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: The End. ... for now!
+  m_Text: The End. ... for now! The End. ... for now! The End. ... for now! The End.
+    ... for now! The End. ... for now! The End. ... for now! The End. ... for now!
+    The End. ... for now! The End. ... for now! The End. ... for now!
 --- !u!222 &1214862096
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -13451,7 +13453,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: 08e169b469f52b442b50abc32441b121, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -301
+      value: -304.100006
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: 08e169b469f52b442b50abc32441b121, type: 3}
       propertyPath: m_LocalPosition.z
@@ -16208,7 +16210,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: check kitchen...
+  m_Text: check kitchen
 --- !u!222 &1700735248
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -18707,7 +18709,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: -1030.30005, y: -608.299988}
+  m_AnchoredPosition: {x: -1030.30005, y: -598.5}
   m_SizeDelta: {x: 2398.61011, y: 850.299988}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1993437753

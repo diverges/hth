@@ -209,7 +209,9 @@ public class P1_Bedroom : Passage {
                         "Don't forget to do", props[4].GetComponent<AudioSource>()
                     );
                     yield return StartCoroutine(Stall(text[2].GetComponent<Typewriter>()));
-                    yield return new WaitForSeconds(DELAY_MOM_TALK);
+
+                    interactible[1].GetComponent<Text>().text = "Mom, no more...";
+                    interactible[1].SetActive(true);
 
                     cState = State.CALL_EXPIRED;
 
@@ -221,8 +223,6 @@ public class P1_Bedroom : Passage {
                                         );
                     yield return StartCoroutine(Stall(text[2].GetComponent<Typewriter>()));
                     yield return new WaitForSeconds(DELAY_MOM_TALK);
-                    interactible[1].GetComponent<Text>().text = "Mom, no more...";
-                    interactible[1].SetActive(true);
 
                     text[2].GetComponent<Typewriter>().LoadText(
                                             "I'm doing laundry tonight.\n" +

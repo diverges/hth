@@ -33,7 +33,7 @@ public class P4_Kitchen : Passage {
     // Local Stopwatch
     private State cState;
 
-    public float DELAY_START = 5.0f;
+    public float DELAY_START = 2.0f;
     public float DELAY_OPTIONS = 2.0f;
     protected override IEnumerator UpdateState()
     {

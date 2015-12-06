@@ -71,36 +71,36 @@ public class P3_Livingroom : Passage {
                     text[10].GetComponent<Typewriter>().LoadText(". . . ", 0.5f);
                     yield return new WaitForSeconds(DELAY_TONY_EAT);
                     interactible[13].SetActive(true);
-                    interactible[13].GetComponent<Typewriter>().LoadText("W-W-What are you?", 0.08f);
+                    interactible[13].GetComponent<Typewriter>().LoadText("W-W-What is that?", 0.08f);
                     yield return StartCoroutine(Stall());
 
                     //TODO: Play sound
                     text[10].GetComponent<Typewriter>().LoadText(" . . .", 0.5f);
                     yield return new WaitForSeconds(DELAY_TONY_EAT);
                     interactible[13].SetActive(true);
-                    interactible[13].GetComponent<Typewriter>().LoadText("W-W-What do you want?", 0.1f);
+                    interactible[13].GetComponent<Typewriter>().LoadText("W-What do you want?", 0.1f);
                     yield return StartCoroutine(Stall());
                     text[10].GetComponent<Typewriter>().SetText("");
 
                     // draw mirror text
                     text[3].GetComponent<Typewriter>().LoadText("PIZZA!!", 0.1f);
                     yield return StartCoroutine(Stall(text[3].GetComponent<Typewriter>()));
-                    text[3].GetComponent<Typewriter>().Fade(1.5f);
+                    text[3].GetComponent<Typewriter>().Fade(1.0f);
                     yield return StartCoroutine(Stall(text[3].GetComponent<Typewriter>()));
 
                     text[3].GetComponent<Typewriter>().LoadText("\nPIZZA!!", 0.1f);
                     yield return StartCoroutine(Stall(text[3].GetComponent<Typewriter>()));
-                    text[3].GetComponent<Typewriter>().Fade(1.5f);
+                    text[3].GetComponent<Typewriter>().Fade(1.0f);
                     yield return StartCoroutine(Stall(text[3].GetComponent<Typewriter>()));
 
                     text[3].GetComponent<Typewriter>().LoadText("\n\nPIZZA!!", 0.1f);
                     yield return StartCoroutine(Stall(text[3].GetComponent<Typewriter>()));
-                    text[3].GetComponent<Typewriter>().Fade(1.5f);
+                    text[3].GetComponent<Typewriter>().Fade(1.0f);
                     yield return StartCoroutine(Stall(text[3].GetComponent<Typewriter>()));
 
                     text[3].GetComponent<Typewriter>().LoadText("\n\n\nPIZZA!!", 0.1f);
                     yield return StartCoroutine(Stall(text[3].GetComponent<Typewriter>()));
-                    text[3].GetComponent<Typewriter>().Fade(1.5f);
+                    text[3].GetComponent<Typewriter>().Fade(1.0f);
                     yield return StartCoroutine(Stall(text[3].GetComponent<Typewriter>()));
 
                     text[3].GetComponent<Typewriter>().LoadText("TONY\nBALONEY\nWANT\nPIZZA!!!", 0.05f);
@@ -109,7 +109,7 @@ public class P3_Livingroom : Passage {
                     interactible[5].SetActive(true);
                     interactible[5].GetComponent<Typewriter>().LoadText(". . . ", 0.5f);
                     yield return StartCoroutine(Stall(interactible[5].GetComponent<Typewriter>()));
-                    interactible[5].GetComponent<Typewriter>().LoadText("...that name\nsounds familiar", 0.1f);
+                    interactible[5].GetComponent<Typewriter>().LoadText("that name\nsounds familiar", 0.1f);
                     cState = State.IDLE;
                     break;
                 case State.LR_COMPUTER:
@@ -119,22 +119,22 @@ public class P3_Livingroom : Passage {
                     ui[2].SetActive(true);
 
                     text[11].GetComponent<Typewriter>().LoadText("August 15, 1955\n\n", 0.1f);
-                    text[11].GetComponent<Typewriter>().AppendText("Springfield - Tragedy strikes Springfield's Annual Pizza Eating Contest", 0.08f);
+                    text[11].GetComponent<Typewriter>().AppendText("Springfield - Tragedy strikes Springfield's Annual Pizza Eating Contest", 0.05f);
                     yield return StartCoroutine(Stall(text[11].GetComponent<Typewriter>()));
                     interactible[15].SetActive(true);
                     yield return StartCoroutine(Stall());
 
-                    text[11].GetComponent<Typewriter>().LoadText("this year, as competitive eater\nTony Baloney was pronounced\ndead shortly after winning\nthe contest.", 0.08f);
+                    text[11].GetComponent<Typewriter>().LoadText("this year, as competitive eater\nTony Baloney was pronounced\ndead shortly after winning\nthe contest.", 0.05f);
                     yield return StartCoroutine(Stall(text[11].GetComponent<Typewriter>()));
                     interactible[15].SetActive(true);
                     yield return StartCoroutine(Stall());
 
-                    text[11].GetComponent<Typewriter>().LoadText("The autopsy reported the death\na result of \"asphyxia due to\nchoking and aspiration\nof gastric contents.\"", 0.08f);
+                    text[11].GetComponent<Typewriter>().LoadText("The autopsy reported the death\na result of \"asphyxia due to\nchoking and aspiration\nof gastric contents.\"", 0.05f);
                     yield return StartCoroutine(Stall(text[11].GetComponent<Typewriter>()));
                     interactible[15].SetActive(true);
                     yield return StartCoroutine(Stall());
 
-                    text[11].GetComponent<Typewriter>().LoadText("Mr. Baloney had consumed\na record-breaking 84\nslices of pizza\nin the allotted 10 minutes.", 0.08f);
+                    text[11].GetComponent<Typewriter>().LoadText("Mr. Baloney had consumed\na record-breaking 84\nslices of pizza\nin the allotted 10 minutes.", 0.05f);
                     yield return StartCoroutine(Stall(text[11].GetComponent<Typewriter>()));
                     interactible[15].SetActive(true);
                     yield return StartCoroutine(Stall());
@@ -143,17 +143,17 @@ public class P3_Livingroom : Passage {
                     interactible[3].GetComponent<Typewriter>().SetText("Tony...?");
                     interactible[3].SetActive(true);
 
-                    text[11].GetComponent<Typewriter>().LoadText("\"Tony wasn't self-destructive\nas much as he was...\ndim-witted.\" remarked\nTony's eating coach.", 0.08f);
+                    text[11].GetComponent<Typewriter>().LoadText("\"Tony wasn't self-destructive\nas much as he was...\ndim-witted.\" remarked\nTony's eating coach.", 0.05f);
                     yield return StartCoroutine(Stall(text[11].GetComponent<Typewriter>()));
                     interactible[15].SetActive(true);
                     yield return StartCoroutine(Stall());
 
-                    text[11].GetComponent<Typewriter>().LoadText("\"He embodied a truly sacrificial\napproach to eating,\nout of a deep - \nseated love for pizza.", 0.08f);
+                    text[11].GetComponent<Typewriter>().LoadText("\"He embodied a truly sacrificial\napproach to eating,\nout of a deep - \nseated love for pizza.", 0.05f);
                     yield return StartCoroutine(Stall(text[11].GetComponent<Typewriter>()));
                     interactible[15].SetActive(true);
                     yield return StartCoroutine(Stall());
 
-                    text[11].GetComponent<Typewriter>().LoadText("If it's any solace,\nI am certain this was\nthe way he would've\nwanted to go.\"", 0.08f);
+                    text[11].GetComponent<Typewriter>().LoadText("If it's any solace,\nI am certain this was\nthe way he would've\nwanted to go.\"", 0.05f);
                     yield return StartCoroutine(Stall(text[11].GetComponent<Typewriter>()));
                     interactible[15].GetComponent<Typewriter>().SetText("Close...");
                     interactible[15].SetActive(true);
@@ -180,7 +180,7 @@ public class P3_Livingroom : Passage {
                     interactible[14].SetActive(false);
                     text[9].GetComponent<Typewriter>().LoadText(". . . ", 0.7f);
                     yield return StartCoroutine(Stall(text[9].GetComponent<Typewriter>()));
-                    text[9].GetComponent<Typewriter>().LoadText("Wow, seriously? How did the handle get here.");
+                    text[9].GetComponent<Typewriter>().LoadText("How did the handle get here.");
                     yield return StartCoroutine(Stall(text[9].GetComponent<Typewriter>()));
                     yield return new WaitForSeconds(1.0f);
                     interactible[13].SetActive(true);
@@ -359,7 +359,7 @@ public class P3_Livingroom : Passage {
                 break;
             case GameActor.P3_B_TUB:
                 if (interactible[14].GetComponent<Text>().text == "") {
-                    interactible[14].GetComponent<Typewriter>().LoadText("This is crazy, but behind here maybe?");
+                    interactible[14].GetComponent<Typewriter>().LoadText("behind here maybe?");
                 }
                 else if (Input.GetButtonDown("Act")) {
                     interactible[14].SetActive(false);
