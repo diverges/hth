@@ -8,9 +8,11 @@ public class P3_Livingroom : Passage {
     enum State
     {
         IDLE,
+        IDLE_COMPUTER,
         INIT,
         BATHROOM,
         BATHROOM_MIRROR,
+        LR_COMPUTER,
         EXPLORE,
         BATHTUB,
     };
@@ -28,11 +30,14 @@ public class P3_Livingroom : Passage {
     // Scene Interactible
     public GameObject[] interactible;
 
+    private Coroutine co;
+
     //
     // Local Stopwatch
     private State cState;
 
     public float DELAY_START = 5.0f;
+    public float DELAY_TONY_EAT = 2.0f;
     protected override IEnumerator UpdateState()
     {
         while (isActive)
@@ -61,13 +66,107 @@ public class P3_Livingroom : Passage {
                     cState = State.IDLE;
                     break;
                 case State.BATHROOM_MIRROR:
-                    text[3].GetComponent<Typewriter>().LoadText("PIZZA!!\nPIZZA!!\nPIZZA!");
+
+                    //TODO: Play sound
+                    text[10].GetComponent<Typewriter>().LoadText(". . . ", 0.5f);
+                    yield return new WaitForSeconds(DELAY_TONY_EAT);
+                    interactible[13].SetActive(true);
+                    interactible[13].GetComponent<Typewriter>().LoadText("W-W-What are you?", 0.08f);
+                    yield return StartCoroutine(Stall());
+
+                    //TODO: Play sound
+                    text[10].GetComponent<Typewriter>().LoadText(" . . .", 0.5f);
+                    yield return new WaitForSeconds(DELAY_TONY_EAT);
+                    interactible[13].SetActive(true);
+                    interactible[13].GetComponent<Typewriter>().LoadText("W-W-What do you want?", 0.1f);
+                    yield return StartCoroutine(Stall());
+                    text[10].GetComponent<Typewriter>().SetText("");
+
+                    // draw mirror text
+                    text[3].GetComponent<Typewriter>().LoadText("PIZZA!!", 0.1f);
                     yield return StartCoroutine(Stall(text[3].GetComponent<Typewriter>()));
+                    text[3].GetComponent<Typewriter>().Fade(1.5f);
+                    yield return StartCoroutine(Stall(text[3].GetComponent<Typewriter>()));
+
+                    text[3].GetComponent<Typewriter>().LoadText("\nPIZZA!!", 0.1f);
+                    yield return StartCoroutine(Stall(text[3].GetComponent<Typewriter>()));
+                    text[3].GetComponent<Typewriter>().Fade(1.5f);
+                    yield return StartCoroutine(Stall(text[3].GetComponent<Typewriter>()));
+
+                    text[3].GetComponent<Typewriter>().LoadText("\n\nPIZZA!!", 0.1f);
+                    yield return StartCoroutine(Stall(text[3].GetComponent<Typewriter>()));
+                    text[3].GetComponent<Typewriter>().Fade(1.5f);
+                    yield return StartCoroutine(Stall(text[3].GetComponent<Typewriter>()));
+
+                    text[3].GetComponent<Typewriter>().LoadText("\n\n\nPIZZA!!", 0.1f);
+                    yield return StartCoroutine(Stall(text[3].GetComponent<Typewriter>()));
+                    text[3].GetComponent<Typewriter>().Fade(1.5f);
+                    yield return StartCoroutine(Stall(text[3].GetComponent<Typewriter>()));
+
+                    text[3].GetComponent<Typewriter>().LoadText("TONY\nBALONEY\nWANT\nPIZZA!!!", 0.05f);
+                    yield return StartCoroutine(Stall(text[3].GetComponent<Typewriter>()));
+
                     interactible[5].SetActive(true);
-                    interactible[5].GetComponent<Typewriter>().LoadText("There's pizza in\nthe kitchen...");
+                    interactible[5].GetComponent<Typewriter>().LoadText(". . . ", 0.5f);
+                    yield return StartCoroutine(Stall(interactible[5].GetComponent<Typewriter>()));
+                    interactible[5].GetComponent<Typewriter>().LoadText("...that name\nsounds familiar", 0.1f);
+                    cState = State.IDLE;
+                    break;
+                case State.LR_COMPUTER:
+                    interactible[15].GetComponent<Typewriter>().LoadText("Google might know...");
+                    yield return StartCoroutine(Stall());
+                    interactible[15].GetComponent<Typewriter>().SetText("Read on...");
+                    ui[2].SetActive(true);
+
+                    text[11].GetComponent<Typewriter>().LoadText("August 15, 1955\n\n", 0.1f);
+                    text[11].GetComponent<Typewriter>().AppendText("Springfield - Tragedy strikes Springfield's Annual Pizza Eating Contest", 0.08f);
+                    yield return StartCoroutine(Stall(text[11].GetComponent<Typewriter>()));
+                    interactible[15].SetActive(true);
+                    yield return StartCoroutine(Stall());
+
+                    text[11].GetComponent<Typewriter>().LoadText("this year, as competitive eater\nTony Baloney was pronounced\ndead shortly after winning\nthe contest.", 0.08f);
+                    yield return StartCoroutine(Stall(text[11].GetComponent<Typewriter>()));
+                    interactible[15].SetActive(true);
+                    yield return StartCoroutine(Stall());
+
+                    text[11].GetComponent<Typewriter>().LoadText("The autopsy reported the death\na result of \"asphyxia due to\nchoking and aspiration\nof gastric contents.\"", 0.08f);
+                    yield return StartCoroutine(Stall(text[11].GetComponent<Typewriter>()));
+                    interactible[15].SetActive(true);
+                    yield return StartCoroutine(Stall());
+
+                    text[11].GetComponent<Typewriter>().LoadText("Mr. Baloney had consumed\na record-breaking 84\nslices of pizza\nin the allotted 10 minutes.", 0.08f);
+                    yield return StartCoroutine(Stall(text[11].GetComponent<Typewriter>()));
+                    interactible[15].SetActive(true);
+                    yield return StartCoroutine(Stall());
+
+                    // TODO: Play sound effect
+                    interactible[3].GetComponent<Typewriter>().SetText("Tony...?");
+                    interactible[3].SetActive(true);
+
+                    text[11].GetComponent<Typewriter>().LoadText("\"Tony wasn't self-destructive\nas much as he was...\ndim-witted.\" remarked\nTony's eating coach.", 0.08f);
+                    yield return StartCoroutine(Stall(text[11].GetComponent<Typewriter>()));
+                    interactible[15].SetActive(true);
+                    yield return StartCoroutine(Stall());
+
+                    text[11].GetComponent<Typewriter>().LoadText("\"He embodied a truly sacrificial\napproach to eating,\nout of a deep - \nseated love for pizza.", 0.08f);
+                    yield return StartCoroutine(Stall(text[11].GetComponent<Typewriter>()));
+                    interactible[15].SetActive(true);
+                    yield return StartCoroutine(Stall());
+
+                    text[11].GetComponent<Typewriter>().LoadText("If it's any solace,\nI am certain this was\nthe way he would've\nwanted to go.\"", 0.08f);
+                    yield return StartCoroutine(Stall(text[11].GetComponent<Typewriter>()));
+                    interactible[15].GetComponent<Typewriter>().SetText("Close...");
+                    interactible[15].SetActive(true);
+                    yield return StartCoroutine(Stall());
+
+                    text[11].GetComponent<Typewriter>().SetText("");
+
                     cState = State.IDLE;
                     break;
                 case State.EXPLORE:
+                    interactible[15].SetActive(false);
+                    isWaiting = false;
+
                     text[4].GetComponent<Typewriter>().LoadText("What happened here!?\nThe handle appears to be missing...");
                     yield return StartCoroutine(Stall(text[4].GetComponent<Typewriter>()));
                     interactible[8].SetActive(true); // fridge
@@ -161,11 +260,11 @@ public class P3_Livingroom : Passage {
         cState = State.INIT;
 
         // Load UI
-        for (int i = 0; i < ui.Length; i++)
+        for (int i = 0; i < ui.Length-1; i++)
             ui[i].SetActive(true);
         
         // Start State Coroutine
-        StartCoroutine(UpdateState());
+        co = StartCoroutine(UpdateState());
     }
 
     protected override void Act(GameActor objectid, Transform obj)
@@ -267,6 +366,16 @@ public class P3_Livingroom : Passage {
                     cState = State.BATHTUB;    
                 }
                 break;
+            case GameActor.P3_COMPUTER:
+                if(cState == State.IDLE_COMPUTER) {
+                    cState = State.LR_COMPUTER;
+                } 
+                else if (cState == State.LR_COMPUTER && Input.GetButtonDown("Act"))
+                {
+                    interactible[15].SetActive(false);
+                    isWaiting = false;
+                }
+                break;
             //
             // Player Look at colliders
             // hidden objects that trigger text when the player
@@ -297,11 +406,12 @@ public class P3_Livingroom : Passage {
                 } 
                 break;
             case GameActor._GO_TO_LIVING_ROOM_BATH:
-                if (Input.GetButtonDown("Act"))
+                if (cState == State.IDLE && Input.GetButtonDown("Act"))
                 {
                     interactible[5].SetActive(false);
                     Target = GameActor._GO_TO_LIVING_ROOM_BATH;
-                    interactible[3].SetActive(true);
+                    interactible[15].SetActive(true);
+                    cState = State.IDLE_COMPUTER;
                 }
                 break;
             case GameActor._GO_TO_LIVING_ROOM_KITCHEN:
@@ -318,7 +428,12 @@ public class P3_Livingroom : Passage {
                 }
                 break;
             case GameActor.P3_E_KITCHEN:
-                if (Input.GetButtonDown("Act"))
+                if(cState == State.BATHROOM_MIRROR && Input.GetButtonDown("Act")) {
+                    interactible[13].SetActive(false);
+                    interactible[13].GetComponent<Text>().text = "";
+                    isWaiting = false;
+                }
+                else if (cState == State.IDLE && Input.GetButtonDown("Act"))
                 {
                     Target = GameActor._GO_TO_KITCHEN;
                     isDone = true;
@@ -328,8 +443,13 @@ public class P3_Livingroom : Passage {
                 if (Input.GetButtonDown("Act"))
                 {
                     interactible[3].SetActive(false);
-                    Target = GameActor._GO_TO_KITCHEN;
+                    ui[2].SetActive(false);
                     interactible[6].SetActive(true);
+                    text[11].GetComponent<Typewriter>().SetText("");
+                    Target = GameActor._GO_TO_KITCHEN;
+                    cState = State.IDLE;
+                    StopCoroutine(co);
+                    co = StartCoroutine(UpdateState()); // hack - restart co routine to stop pc text :)
                 }
                 break;
             default:

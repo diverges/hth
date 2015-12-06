@@ -83,7 +83,7 @@ public class P2_Hallway : Passage {
                     yield return StartCoroutine(Stall(text[1].GetComponent<Typewriter>()));
                     yield return new WaitForSeconds(DELAY_LIGHT_SWITCH);
                     interactible[1].SetActive(true);
-                    interactible[1].GetComponent<Typewriter>().LoadText("turn lights on");
+                    interactible[1].GetComponent<Typewriter>().SetText("turn lights on");
                     cState = State.IDLE;
 
                     break;
@@ -104,7 +104,7 @@ public class P2_Hallway : Passage {
                     text[0].text = "";
                     interactible[0].SetActive(true);
                     yield return StartCoroutine(Stall());
-                    interactible[0].GetComponent<Typewriter>().LoadText("close window");
+                    interactible[0].GetComponent<Typewriter>().SetText("close window");
                     cState = State.IDLE;
 
                     break;
@@ -134,6 +134,7 @@ public class P2_Hallway : Passage {
                 // Broom
                 case State.BROOM:
                     yield return StartCoroutine(Stall(text[2].GetComponent<Typewriter>()));
+                    props[4].SetActive(false);
                     interactible[4].SetActive(true);
                     cState = State.IDLE;
                     break;
@@ -176,6 +177,8 @@ public class P2_Hallway : Passage {
         for (int i = 0; i < ui.Length; i++)
             ui[i].SetActive(false);
 
+        // Stop Footstep Audio
+        props[0].GetComponent<AudioSource>().Stop();
 
     }
 

@@ -33,6 +33,8 @@ public class P1_Bedroom : Passage {
     private Stopwatch timer = new Stopwatch();
     private State cState;
 
+    private Coroutine co;
+
     bool channel = false;
     int tvVerse = 0;
 
@@ -168,6 +170,7 @@ public class P1_Bedroom : Passage {
                         props[4].GetComponent<AudioSource>(), 0.08f);
 
                     yield return StartCoroutine(Stall(text[2].GetComponent<Typewriter>()));
+                    interactible[1].GetComponent<Text>().text = "Hey mom...";
                     interactible[1].SetActive(true);
                     yield return StartCoroutine(Stall());
 
@@ -178,6 +181,7 @@ public class P1_Bedroom : Passage {
                     );
 
                     yield return StartCoroutine(Stall(text[2].GetComponent<Typewriter>()));
+                    interactible[1].GetComponent<Text>().text = "ok...";
                     interactible[1].SetActive(true);
                     yield return StartCoroutine(Stall());
                     text[2].GetComponent<Typewriter>().LoadText(
@@ -194,6 +198,7 @@ public class P1_Bedroom : Passage {
 
                     yield return StartCoroutine(Stall(text[2].GetComponent<Typewriter>()));
                     interactible[1].SetActive(true);
+                    interactible[1].GetComponent<Text>().text = "gotcha...";
                     yield return StartCoroutine(Stall());
                     text[2].GetComponent<Typewriter>().LoadText(
                         "We’ll be back later tonight.\n" +
@@ -215,7 +220,6 @@ public class P1_Bedroom : Passage {
                     interactible[1].GetComponent<Text>().text = "Mom, no more...";
                     interactible[1].SetActive(true);
 
-                    if (cState == State.FOOTSTEPS) break;
                     text[2].GetComponent<Typewriter>().LoadText(
                                             "I'm doing laundry tonight.\n" +
                                             "Separate your darks from your\n" + 
@@ -224,7 +228,6 @@ public class P1_Bedroom : Passage {
                     yield return StartCoroutine(Stall(text[2].GetComponent<Typewriter>()));
                     yield return new WaitForSeconds(DELAY_MOM_TALK);
 
-                    if (cState == State.FOOTSTEPS) break;
                     text[2].GetComponent<Typewriter>().LoadText(
                                             "We don't want to turn\n" +
                                             "another favorite shirt pink again,", props[4].GetComponent<AudioSource>()
@@ -232,7 +235,6 @@ public class P1_Bedroom : Passage {
                     yield return StartCoroutine(Stall(text[2].GetComponent<Typewriter>()));
                     yield return new WaitForSeconds(DELAY_MOM_TALK);
 
-                    if (cState == State.FOOTSTEPS) break;
                     text[2].GetComponent<Typewriter>().LoadText(
                                             "now do we? Love you!\n" +
                                             "Bye!", props[4].GetComponent<AudioSource>()
@@ -241,13 +243,14 @@ public class P1_Bedroom : Passage {
                     yield return new WaitForSeconds(DELAY_MOM_TALK);
 
 
-                    props[2].SetActive(false);                    
+                                      
                     cState = State.FOOTSTEPS;
 
                     break;
                 //
                 // Wait 5 seconds
                 case State.FOOTSTEPS:
+                    props[2].SetActive(false);
                     ui[1].SetActive(false);
                     props[1].GetComponent<AudioSource>().Play();
                     yield return new WaitForSeconds(DELAY_CALL_TO_MUSIC);
@@ -301,7 +304,7 @@ public class P1_Bedroom : Passage {
         text[1].GetComponent<Typewriter>().LoadText(" click\nto\nstart");
 
         // Start State Coroutine
-        StartCoroutine(UpdateState());
+        co = StartCoroutine(UpdateState());
     }
 
     // Use this for initialization
@@ -363,6 +366,8 @@ public class P1_Bedroom : Passage {
                         interactible[1].SetActive(false);
                         isWaiting = false;
                         cState = State.FOOTSTEPS;
+                        StopCoroutine(co); // hack - force new state check
+                        co = StartCoroutine(UpdateState());
                     }
                 }
                 break;

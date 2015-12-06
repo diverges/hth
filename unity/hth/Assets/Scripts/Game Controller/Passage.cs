@@ -30,7 +30,7 @@ public abstract class Passage : MonoBehaviour {
     }
     protected IEnumerator Stall(Typewriter p)
     {
-        while (p.typing) yield return new WaitForSeconds(0.1f);
+        while (p.typing || p.fading) yield return new WaitForSeconds(0.1f);
     }
 
     /// <summary>

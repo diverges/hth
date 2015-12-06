@@ -31,6 +31,10 @@ public class Typewriter : MonoBehaviour {
         typing = false;
     }
 
+    public void SetText(string message) {
+        this.guiText.text = message;
+    }
+
     public void LoadText(string message) {
         typing = true;
         guiText.text = "";

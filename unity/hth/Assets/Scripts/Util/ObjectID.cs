@@ -41,6 +41,8 @@ public enum GameActor {
     _GO_TO_KITCHEN,
     _GO_TO_BATHROOM,
 
+    P3_COMPUTER,
+
 }
 
 public class ObjectID : MonoBehaviour {
