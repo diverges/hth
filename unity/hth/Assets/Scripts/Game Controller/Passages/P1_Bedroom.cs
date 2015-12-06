@@ -42,6 +42,7 @@ public class P1_Bedroom : Passage {
     // T.V.
     IEnumerator TV() {
         Typewriter tp = text[1].GetComponent<Typewriter>();
+        
         while(props[0].activeSelf)
         {
             interactible[3].SetActive(true);
@@ -49,6 +50,7 @@ public class P1_Bedroom : Passage {
             {
                 if (channel)
                 {
+                    props[6].GetComponent<AudioSource>().Stop();
                     // Food
                     switch (tvVerse)
                     {
@@ -64,6 +66,7 @@ public class P1_Bedroom : Passage {
                 }
                 else
                 {
+                    props[6].GetComponent<AudioSource>().Play();
                     // News
                     switch (tvVerse)
                     {
@@ -88,7 +91,8 @@ public class P1_Bedroom : Passage {
                 }
             }
             yield return new WaitForSeconds(1.0f);
-        }  
+        }
+        
     }
 
     public float DELAY_TITLE_TEXT = 1.0f;
@@ -190,7 +194,7 @@ public class P1_Bedroom : Passage {
                         , props[4].GetComponent<AudioSource>()
                     );
                     text[2].GetComponent<Typewriter>().AppendText(
-                        " \n", props[4].GetComponent<AudioSource>(), 1.0f
+                        " \n", props[4].GetComponent<AudioSource>(), 0.04f
                     );
                     text[2].GetComponent<Typewriter>().AppendText(
                         "pizza.", props[4].GetComponent<AudioSource>(), 0.10f
@@ -284,6 +288,7 @@ public class P1_Bedroom : Passage {
 
         // Stop Footstep Audio
         props[1].GetComponent<AudioSource>().Stop();
+        props[6].GetComponent<AudioSource>().Stop();
     }
 
     public override void Initialize(ActiveObject c)

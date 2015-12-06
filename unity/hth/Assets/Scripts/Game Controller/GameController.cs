@@ -32,10 +32,10 @@ public class GameController : MonoBehaviour {
         // Nothing here
         // Only one passage for now   
         if(active == null) {
-            LoadPassage(0);
+            //LoadPassage(0);
 
             // TEMP - SPAWN ON HALWAY
-            //LoadPassage(2, CameraPos.LIVING_ROOM);
+            LoadPassage(1, CameraPos.HALLWAY);
         }
 
         if (active.IsDone) {
@@ -108,7 +108,7 @@ public class GameController : MonoBehaviour {
                 camPos.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
                 break;
             case CameraPos.HALLWAY:
-                camPos.position = new Vector3(140, 22, 34);
+                camPos.position = new Vector3(140, 25, 34);
                 camPos.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
                 break;
             case CameraPos.LIVING_ROOM:

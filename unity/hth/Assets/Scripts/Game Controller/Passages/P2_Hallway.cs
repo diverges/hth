@@ -38,7 +38,7 @@ public class P2_Hallway : Passage {
     //
     // Local Timing Parmeters
     public float DELAY_START = 4.0f;
-    public float DELAY_LIGHT_SWITCH = 1.5f;
+    public float DELAY_LIGHT_SWITCH = 0.5f;
     public float DELAY_LIGHT_FLICKER = 3.0f;
     public float DELAY_LIGHT_FLICKER_2 = 2.5f;
     public float DELAY_WINDOW_TO_FOOTSTEP = 2.0f;
@@ -118,7 +118,7 @@ public class P2_Hallway : Passage {
                     props[0].GetComponent<AudioSource>().Play();
 
                     yield return new WaitForSeconds(5.0f);
-                    text[0].GetComponent<Typewriter>().LoadText("Is someone outside?", 0.1f);
+                    text[0].GetComponent<Typewriter>().LoadText("   ", 0.1f);
 
                     yield return StartCoroutine(Stall(text[0].GetComponent<Typewriter>()));
                     // Enable possible actions
@@ -226,6 +226,7 @@ public class P2_Hallway : Passage {
                 else if (cState == State.IDLE && Input.GetButtonDown("Act"))
                 {
                     props[1].GetComponent<AudioSource>().Stop();
+                    props[5].GetComponent<Transform>().Rotate(0, 0, -60);
                     interactible[0].SetActive(false);
                     cState = State.WINDOW;
                 }
