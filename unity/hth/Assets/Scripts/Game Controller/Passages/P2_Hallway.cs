@@ -118,14 +118,18 @@ public class P2_Hallway : Passage {
                     props[0].GetComponent<AudioSource>().Play();
 
                     yield return new WaitForSeconds(5.0f);
-                    text[0].GetComponent<Typewriter>().LoadText("   ", 0.1f);
+                    //text[0].GetComponent<Typewriter>().LoadText("   ", 0.1f);
 
                     yield return StartCoroutine(Stall(text[0].GetComponent<Typewriter>()));
                     // Enable possible actions
                     ui[2].SetActive(true);
                     ui[4].SetActive(true);
 
-                    interactible[4].GetComponent<Text>().text = "Is someone there?";
+
+                    text[4].GetComponent<Typewriter>().LoadText(". . . What was that!? ");
+                    yield return StartCoroutine(Stall(text[4].GetComponent<Typewriter>()));
+
+                    interactible[4].GetComponent<Text>().text = "Everyone should be at the recital";
                     interactible[4].SetActive(true);
                     cState = State.ACTION_WAIT;
 
@@ -135,6 +139,7 @@ public class P2_Hallway : Passage {
                 case State.BROOM:
                     yield return StartCoroutine(Stall(text[2].GetComponent<Typewriter>()));
                     props[4].SetActive(false);
+                    interactible[4].GetComponent<Text>().text = "Is someone there?";
                     interactible[4].SetActive(true);
                     cState = State.IDLE;
                     break;
@@ -255,7 +260,7 @@ public class P2_Hallway : Passage {
                     switch (cState) {
                         case State.ACTION_WAIT:
                             // TODO: Play faster footstep sound
-                            text[4].GetComponent<Typewriter>().LoadText(". . . What was that!? ");
+                            
                             interactible[2].SetActive(true);
                             interactible[3].SetActive(false);
                             interactible[4].SetActive(false);
