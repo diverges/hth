@@ -202,7 +202,7 @@ public class P1_Bedroom : Passage {
 
                     yield return StartCoroutine(Stall(text[2].GetComponent<Typewriter>()));
                     interactible[1].SetActive(true);
-                    interactible[1].GetComponent<Text>().text = "gotcha...";
+                    interactible[1].GetComponent<Text>().text = "Pizza!!";
                     yield return StartCoroutine(Stall());
                     text[2].GetComponent<Typewriter>().LoadText(
                         "We’ll be back later tonight.\n" +

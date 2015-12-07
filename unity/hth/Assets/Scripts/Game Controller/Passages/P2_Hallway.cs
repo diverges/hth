@@ -93,7 +93,7 @@ public class P2_Hallway : Passage {
                     yield return new WaitForSeconds(DELAY_LIGHT_FLICKER);
                     ui[1].SetActive(true);
 
-                    text[1].GetComponent<Typewriter>().LoadText("Umm... nothing?", 0.20f);
+                    text[1].GetComponent<Typewriter>().LoadText("Um...nothing?", 0.20f);
                     yield return StartCoroutine(Stall(text[1].GetComponent<Typewriter>()));
                     text[1].GetComponent<Typewriter>().LoadText("Why is the window open?");
 
@@ -112,7 +112,7 @@ public class P2_Hallway : Passage {
                 // Window
                 case State.WINDOW:
                     ui[1].SetActive(false);
-                    text[0].GetComponent<Typewriter>().LoadText("Weird, we don't ever open that window.");
+                    text[0].GetComponent<Typewriter>().LoadText("That window's never open...");
 
                     yield return new WaitForSeconds(DELAY_WINDOW_TO_FOOTSTEP);
                     props[0].GetComponent<AudioSource>().Play();
@@ -128,6 +128,9 @@ public class P2_Hallway : Passage {
 
                     text[4].GetComponent<Typewriter>().LoadText(". . . What was that!? ");
                     yield return StartCoroutine(Stall(text[4].GetComponent<Typewriter>()));
+					
+					text[0].GetComponent<Typewriter>().LoadText(". . .", 0.5f); //will
+					yield return StartCoroutine(Stall(text[0].GetComponent<Typewriter>()));
 
                     interactible[4].GetComponent<Text>().text = "Everyone should be at the recital";
                     interactible[4].SetActive(true);
