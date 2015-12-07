@@ -85,27 +85,29 @@ public class P3_Livingroom : Passage {
                     text[10].GetComponent<Typewriter>().SetText("");
 
                     // draw mirror text
-                    text[3].GetComponent<Typewriter>().LoadText("   PIZZA!!", 0.1f);
+					props[4].GetComponent<AudioSource>().Play();
+					text[3].GetComponent<Typewriter>().LoadText("      PIZZA", 0.1f);
                     yield return StartCoroutine(Stall(text[3].GetComponent<Typewriter>()));
                     text[3].GetComponent<Typewriter>().Fade(1.0f);
                     yield return StartCoroutine(Stall(text[3].GetComponent<Typewriter>()));
 
-                    text[3].GetComponent<Typewriter>().LoadText("\n   PIZZA!!", 0.1f);
+                    text[3].GetComponent<Typewriter>().LoadText("\n      PIZZA!", 0.1f);
                     yield return StartCoroutine(Stall(text[3].GetComponent<Typewriter>()));
                     text[3].GetComponent<Typewriter>().Fade(1.0f);
                     yield return StartCoroutine(Stall(text[3].GetComponent<Typewriter>()));
 
-                    text[3].GetComponent<Typewriter>().LoadText("\n\n   PIZZA!!", 0.1f);
+                    text[3].GetComponent<Typewriter>().LoadText("\n\n      PIZZA!!", 0.1f);
                     yield return StartCoroutine(Stall(text[3].GetComponent<Typewriter>()));
                     text[3].GetComponent<Typewriter>().Fade(1.0f);
                     yield return StartCoroutine(Stall(text[3].GetComponent<Typewriter>()));
 
-                    text[3].GetComponent<Typewriter>().LoadText("\n\n\n   PIZZA!!", 0.1f);
+                    text[3].GetComponent<Typewriter>().LoadText("\n\n\n   PIZZA!!!!", 0.1f);
                     yield return StartCoroutine(Stall(text[3].GetComponent<Typewriter>()));
                     text[3].GetComponent<Typewriter>().Fade(1.0f);
                     yield return StartCoroutine(Stall(text[3].GetComponent<Typewriter>()));
 
-                    text[3].GetComponent<Typewriter>().LoadText("   TONY\n  BALONEY\n   WANT\n  PIZZA!!!", 0.05f);
+					props[4].GetComponent<AudioSource>().Play();
+					text[3].GetComponent<Typewriter>().LoadText("      TONY\n   BALONEY\n      WANT\n     PIZZA!!!", 0.05f);
                     yield return StartCoroutine(Stall(text[3].GetComponent<Typewriter>()));
 
                     interactible[5].SetActive(true);
@@ -149,6 +151,7 @@ public class P3_Livingroom : Passage {
 					// TODO: Play sound effect
 					interactible[3].GetComponent<Typewriter>().SetText("Tony...?");
 					interactible[3].SetActive(true);
+					// todo: start playing new music when player looks at "Tony...?"	
 
                     text[11].GetComponent<Typewriter>().LoadText("\"He embodied a truly sacrificial\napproach to eating,\nout of a deep - \nseated love for pizza.", 0.05f);
                     yield return StartCoroutine(Stall(text[11].GetComponent<Typewriter>()));
@@ -169,7 +172,7 @@ public class P3_Livingroom : Passage {
                     interactible[15].SetActive(false);
                     isWaiting = false;
 
-                    text[4].GetComponent<Typewriter>().LoadText("What happened here!?\nWhy's the handle missing?");
+                    text[4].GetComponent<Typewriter>().LoadText("What happened here?\nWhy's the handle missing?");
                     yield return StartCoroutine(Stall(text[4].GetComponent<Typewriter>()));
                     interactible[8].SetActive(true); // fridge
                     interactible[9].SetActive(true); // trash

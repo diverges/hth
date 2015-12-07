@@ -78,17 +78,17 @@ public class P4_Kitchen : Passage {
                 //
                 //
                 case State.BAD_TONY:
-                    text[2].GetComponent<Typewriter>().LoadText("There's no way to clean this up before mom gets home.", 0.1f);
+                    text[2].GetComponent<Typewriter>().LoadText("There's no way to clean this up before mom gets home", 0.1f);
                     yield return StartCoroutine(Stall(text[2].GetComponent<Typewriter>()));
 
                     interactible[0].SetActive(true);
-                    interactible[0].GetComponent<Typewriter>().LoadText(" Lock oven door");
+                    interactible[0].GetComponent<Typewriter>().LoadText(" Thanks for nothing, Tony.");
                     yield return StartCoroutine(Stall());
 
                     text[0].GetComponent<Typewriter>().LoadText(". . .", 0.5f);
                     yield return StartCoroutine(Stall(text[0].GetComponent<Typewriter>()));
 
-                    text[0].GetComponent<Typewriter>().LoadText("You've had enough pizza Tony!", 0.1f);
+                    text[0].GetComponent<Typewriter>().LoadText("No pizza for you!", 0.1f);
                     yield return StartCoroutine(Stall(text[0].GetComponent<Typewriter>()));
 
                     cState = State.IDLE;

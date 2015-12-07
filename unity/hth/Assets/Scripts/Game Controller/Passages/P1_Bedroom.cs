@@ -133,10 +133,10 @@ public class P1_Bedroom : Passage {
  
                    
                     yield return new WaitForSeconds(DELAY_TITLE_TEXT);
-                    text[0].GetComponent<Typewriter>().LoadText("Not\n Alone");
+                    text[0].GetComponent<Typewriter>().LoadText("NOT\n ALONE");
 
                     yield return new WaitForSeconds(DELAY_SUBTITLE_TEXT);
-                    text[1].GetComponent<Typewriter>().LoadText("\n\n\n\n\n\n\nA hypertext\nadventure game...");
+                    text[1].GetComponent<Typewriter>().LoadText("\n\n\n\n\n\n\nA hypertext\nadventure game");
 
                     yield return new WaitForSeconds(DELAY_SUBTITLE_TO_NEWS);
                     text[1].GetComponent<Typewriter>().Fade(2.5f);
@@ -202,7 +202,7 @@ public class P1_Bedroom : Passage {
 
                     yield return StartCoroutine(Stall(text[2].GetComponent<Typewriter>()));
                     interactible[1].SetActive(true);
-                    interactible[1].GetComponent<Text>().text = "Pizza!!";
+                    interactible[1].GetComponent<Text>().text = "PIZZA!!!";
                     yield return StartCoroutine(Stall());
                     text[2].GetComponent<Typewriter>().LoadText(
                         "We’ll be back later tonight.\n" +
