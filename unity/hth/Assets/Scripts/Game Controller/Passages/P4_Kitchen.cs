@@ -12,8 +12,7 @@ public class P4_Kitchen : Passage {
         INIT,
         OVEN_ON,
         BAD_TONY,
-        EAT_PIZZA,
-        SHARE,
+        GOOD_TONY,
     };
 
     //
@@ -50,57 +49,68 @@ public class P4_Kitchen : Passage {
                 // Initial State - Load Title
                 case State.INIT:
                     yield return new WaitForSeconds(DELAY_START);
-                    text[0].GetComponent<Typewriter>().LoadText(". . . ", 0.5f);
+                    text[0].GetComponent<Typewriter>().LoadText(". . . ", 0.2f);
                     yield return StartCoroutine(Stall(text[0].GetComponent<Typewriter>()));
-                    text[0].GetComponent<Typewriter>().LoadText("Ugh, mom's gonna be mad\nif she sees this mess.", 0.1f);
-                    yield return StartCoroutine(Stall(text[0].GetComponent<Typewriter>()));
-
-                    
-                    yield return new WaitForSeconds(DELAY_OPTIONS);
 
                     interactible[0].SetActive(true);
                     interactible[0].GetComponent<Typewriter>().LoadText(" Put handle back on.");
-                    yield return StartCoroutine(Stall(interactible[0].GetComponent<Typewriter>()));
+                    yield return StartCoroutine(Stall());
+                    props[0].SetActive(false);
+                    props[1].SetActive(true);   
+
+                    text[0].GetComponent<Typewriter>().LoadText("Good as new...", 0.1f);
+                    yield return StartCoroutine(Stall(text[0].GetComponent<Typewriter>()));
+
+                    text[0].GetComponent<Typewriter>().LoadText("Oven is back in action!", 0.1f);
+                    yield return StartCoroutine(Stall(text[0].GetComponent<Typewriter>()));
+
+                    yield return new WaitForSeconds(DELAY_OPTIONS);
 
                     interactible[1].SetActive(true);
-                    interactible[1].GetComponent<Typewriter>().LoadText(" What do you wanna eat, Tony?");
-                    yield return StartCoroutine(Stall(interactible[1].GetComponent<Typewriter>()));
+                    interactible[1].GetComponent<Typewriter>().SetText(" Alright, pizza time! ");
 
                     interactible[2].SetActive(true);
-                    interactible[2].GetComponent<Typewriter>().LoadText(" Tony, you made a mess.");
-                    yield return StartCoroutine(Stall(interactible[2].GetComponent<Typewriter>()));
-
+                    interactible[2].GetComponent<Typewriter>().SetText(" Pickup Tony's mess.");
+ 
                     cState = State.IDLE;
                     break;
 
                 //
                 //
                 case State.BAD_TONY:
-                    text[2].GetComponent<Typewriter>().LoadText("No pizza for you Tony.", 0.1f);
-                    yield return StartCoroutine(Stall(text[0].GetComponent<Typewriter>()));
-                    yield return new WaitForSeconds(DELAY_OPTIONS);
+                    text[2].GetComponent<Typewriter>().LoadText("There's no way to clean this up before mom gets home.", 0.1f);
+                    yield return StartCoroutine(Stall(text[2].GetComponent<Typewriter>()));
 
                     interactible[0].SetActive(true);
-                    interactible[0].GetComponent<Typewriter>().LoadText(" Eat Pizza");
-                    yield return StartCoroutine(Stall(interactible[0].GetComponent<Typewriter>()));
-                    cState = State.IDLE_BAD;
+                    interactible[0].GetComponent<Typewriter>().LoadText(" Lock oven door");
+                    yield return StartCoroutine(Stall());
+
+                    text[0].GetComponent<Typewriter>().LoadText(". . .", 0.5f);
+                    yield return StartCoroutine(Stall(text[0].GetComponent<Typewriter>()));
+
+                    text[0].GetComponent<Typewriter>().LoadText("You've had enough pizza Tony!", 0.1f);
+                    yield return StartCoroutine(Stall(text[0].GetComponent<Typewriter>()));
+
+                    cState = State.IDLE;
 
                     break;
-                case State.OVEN_ON:
-                    text[0].GetComponent<Typewriter>().LoadText("Oven is back in action!", 0.1f);
-                    yield return StartCoroutine(Stall(text[0].GetComponent<Typewriter>()));
-                    yield return new WaitForSeconds(DELAY_OPTIONS);
+
+                case State.GOOD_TONY:
+                    text[1].GetComponent<Typewriter>().LoadText("Tony needs the pizza more than me.", 0.08f);
+                    yield return StartCoroutine(Stall(text[1].GetComponent<Typewriter>()));
 
                     interactible[0].SetActive(true);
-                    interactible[0].GetComponent<Typewriter>().LoadText(" Eat Pizza");
-                    yield return StartCoroutine(Stall(interactible[0].GetComponent<Typewriter>()));
+                    interactible[0].GetComponent<Typewriter>().SetText(" Share Pizza");
+                    yield return StartCoroutine(Stall());
 
-                    interactible[2].SetActive(true);
-                    interactible[2].GetComponent<Typewriter>().LoadText(" Share pizza with Tony...");
-                    yield return StartCoroutine(Stall(interactible[2].GetComponent<Typewriter>()));
-                    cState = State.IDLE_BAD;
+                    text[0].GetComponent<Typewriter>().LoadText(". . .", 0.5f);
+                    yield return StartCoroutine(Stall(text[0].GetComponent<Typewriter>()));
+
+                    text[0].GetComponent<Typewriter>().LoadText("Rest in pizza, Tony.", 0.08f);
+                    yield return StartCoroutine(Stall(text[0].GetComponent<Typewriter>()));
+
+                    cState = State.IDLE;
                     break;
-
                 // Default - Should not get here
                 default:
                     yield return null;
@@ -157,44 +167,30 @@ public class P4_Kitchen : Passage {
         switch (objectid)
         {
             case GameActor.OBJ_K_OVEN:
-                if (Input.GetButtonDown("Act") && cState == State.IDLE)
+                if (Input.GetButtonDown("Act") && cState == State.INIT)
                 {
                     interactible[0].SetActive(false);
-                    interactible[1].SetActive(false);
-                    interactible[2].SetActive(false);
-                    cState = State.OVEN_ON;
+                    isWaiting = false;
                 }
-                else if (Input.GetButtonDown("Act") && cState == State.IDLE_BAD)
+                else if (Input.GetButtonDown("Act") && (cState == State.BAD_TONY || cState == State.GOOD_TONY) )
                 {
                     interactible[0].SetActive(false);
-                    interactible[1].SetActive(false);
-                    interactible[2].SetActive(false);
-                    text[1].GetComponent<Typewriter>().LoadText("Teaches him to try to steal\nsomeone else's pizza.\n\nTHE END.");
-                    cState = State.IDLE;
+                    isWaiting = false;
                 }
                 break;
             case GameActor.P3_K_FRIDGE:
                 if(Input.GetButtonDown("Act") && cState == State.IDLE) {
                     interactible[1].SetActive(false);
                     interactible[2].SetActive(false);
-                    text[1].GetComponent<Typewriter>().LoadText("Oh duh, pizza!");
+                    cState = State.GOOD_TONY;
                 }
                 break;
             case GameActor.P3_K_TRASH:
                 if (Input.GetButtonDown("Act") && cState == State.IDLE)
                 {
-                    interactible[0].SetActive(false);
                     interactible[1].SetActive(false);
                     interactible[2].SetActive(false);
                     cState = State.BAD_TONY;
-                }
-                if (Input.GetButtonDown("Act") && cState == State.IDLE_BAD)
-                {
-                    interactible[0].SetActive(false);
-                    interactible[1].SetActive(false);
-                    interactible[2].SetActive(false);
-                    text[2].GetComponent<Typewriter>().LoadText("Welp, I guess he needed it a\nlot more than I did.\nHope you're happy, Tony.\nI'll go play some\njenga instead...\n\nTHE END");
-                    cState = State.IDLE;
                 }
                 break;
             default:

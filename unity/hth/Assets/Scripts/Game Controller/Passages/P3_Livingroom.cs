@@ -68,6 +68,7 @@ public class P3_Livingroom : Passage {
                 case State.BATHROOM_MIRROR:
 
                     //TODO: Play sound
+                    props[4].GetComponent<AudioSource>().Play();
                     text[10].GetComponent<Typewriter>().LoadText(". . . ", 0.5f);
                     yield return new WaitForSeconds(DELAY_TONY_EAT);
                     interactible[13].SetActive(true);
@@ -75,6 +76,7 @@ public class P3_Livingroom : Passage {
                     yield return StartCoroutine(Stall());
 
                     //TODO: Play sound
+                    props[4].GetComponent<AudioSource>().Play();
                     text[10].GetComponent<Typewriter>().LoadText(" . . .", 0.5f);
                     yield return new WaitForSeconds(DELAY_TONY_EAT);
                     interactible[13].SetActive(true);
@@ -178,9 +180,11 @@ public class P3_Livingroom : Passage {
                     break;
                 case State.BATHTUB:
                     interactible[14].SetActive(false);
+                    
+                    props[2].SetActive(false);
+                    props[3].SetActive(true);
+                    props[3].GetComponent<AudioSource>().Play();
                     text[9].GetComponent<Typewriter>().LoadText(". . . ", 0.7f);
-                    yield return StartCoroutine(Stall(text[9].GetComponent<Typewriter>()));
-                    text[9].GetComponent<Typewriter>().LoadText("How did the handle get here.");
                     yield return StartCoroutine(Stall(text[9].GetComponent<Typewriter>()));
                     yield return new WaitForSeconds(1.0f);
                     interactible[13].SetActive(true);
