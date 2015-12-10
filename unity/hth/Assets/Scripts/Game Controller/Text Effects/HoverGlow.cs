@@ -27,27 +27,27 @@ public class HoverGlow : MonoBehaviour {
         else timer.Update();
 
 	    if(isOver) {
-            if (timer.getElapsedSeconds() < 1.0f)
+            if (timer.getElapsedSeconds() < 0.5f)
             {
                 cColor = text.color;
                 ColorUtility.TryParseHtmlString("#84130EFF", out myColor);
             }
-            else if (timer.getElapsedSeconds() < 2.0f)
+            else if (timer.getElapsedSeconds() < 1.0f)
             {
                 cColor = text.color;
                 ColorUtility.TryParseHtmlString("#95241EFF", out myColor);
             }
             else timer.Reset();
         } else {
-            if (timer.getElapsedSeconds() < 2.0f)
+            if (timer.getElapsedSeconds() < 0.5f)
             {
                 cColor = text.color;
                 ColorUtility.TryParseHtmlString("#4d6ad8", out myColor);
             }
-            else if (timer.getElapsedSeconds() < 4.0f)
+            else if (timer.getElapsedSeconds() < 1.0f)
             {
                 cColor = text.color;
-                ColorUtility.TryParseHtmlString("#7e9bed", out myColor);
+                ColorUtility.TryParseHtmlString("#1122ff", out myColor);
             }
             else timer.Reset();
         }
