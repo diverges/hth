@@ -9,6 +9,7 @@ public class P3_Livingroom : Passage {
     {
         IDLE,
         IDLE_COMPUTER,
+        IDLE_BATHROOM,
         INIT,
         BATHROOM,
         BATHROOM_MIRROR,
@@ -169,10 +170,8 @@ public class P3_Livingroom : Passage {
                     interactible[15].GetComponent<Typewriter>().SetText("Close...");
                     interactible[15].SetActive(true);
                     yield return StartCoroutine(Stall());
-                    text[11].GetComponent<Typewriter>().SetText("");
+                    text[11].GetComponent<Text>().text = "";
                     ui[2].SetActive(false);
-
-                    text[11].GetComponent<Typewriter>().SetText("");
 
                     cState = State.IDLE;
                     break;
@@ -186,10 +185,20 @@ public class P3_Livingroom : Passage {
                     interactible[9].SetActive(true); // trash
                     interactible[10].SetActive(true); // shelves
                     interactible[11].SetActive(true); // trash 2
-                    interactible[13].SetActive(true); // bathtub
+                    //interactible[13].SetActive(true); // bathtub
                     cState = State.IDLE;
                     break;
                 case State.BATHTUB:
+                    interactible[13].SetActive(true);
+                    interactible[13].GetComponent<Typewriter>().LoadText("Please not here");
+                    yield return StartCoroutine(Stall());
+                    props[8].SetActive(false);
+                    props[9].SetActive(true);
+                    props[9].GetComponent<AudioSource>().Play();
+                    text[10].GetComponent<Typewriter>().LoadText(". . Good", 0.08f);
+
+                    interactible[14].SetActive(true);
+                    yield return StartCoroutine(Stall());
                     interactible[14].SetActive(false);
                     
                     props[2].SetActive(false);
@@ -332,6 +341,9 @@ public class P3_Livingroom : Passage {
                 else if (Input.GetButtonDown("Act"))
                 {
                     interactible[8].SetActive(false);
+                    props[6].SetActive(false);
+                    props[7].SetActive(true);
+                    props[7].GetComponent<AudioSource>().Play();
                     text[5].GetComponent<Typewriter>().LoadText("Nothing...\nMom needs to buy groceries.");
                     if (!interactible[9].activeSelf)
                     {
@@ -348,7 +360,7 @@ public class P3_Livingroom : Passage {
                 else if (Input.GetButtonDown("Act"))
                 {
                     interactible[10].SetActive(false);
-                    text[7].GetComponent<Typewriter>().LoadText("Lots of books,\nbut no handle...");
+                    text[7].GetComponent<Typewriter>().LoadText(" no books,\nno handle...");
                     if (!interactible[11].activeSelf)
                     {
                         interactible[12].SetActive(true);
@@ -378,7 +390,7 @@ public class P3_Livingroom : Passage {
                 }
                 else if (Input.GetButtonDown("Act")) {
                     interactible[14].SetActive(false);
-                    cState = State.BATHTUB;    
+                    isWaiting = false;
                 }
                 break;
             case GameActor.P3_COMPUTER:
@@ -438,12 +450,12 @@ public class P3_Livingroom : Passage {
             case GameActor.P3_E_BATHROOM:
                 if (Input.GetButtonDown("Act"))
                 {
-                    interactible[14].SetActive(true);
+                    cState = State.BATHTUB;
                     Target = GameActor._GO_TO_BATHROOM;
                 }
                 break;
             case GameActor.P3_E_KITCHEN:
-                if(cState == State.BATHROOM_MIRROR && Input.GetButtonDown("Act")) {
+                if ((cState == State.BATHTUB || cState == State.BATHROOM_MIRROR) && Input.GetButtonDown("Act")) {
                     interactible[13].SetActive(false);
                     interactible[13].GetComponent<Text>().text = "";
                     isWaiting = false;
@@ -458,7 +470,7 @@ public class P3_Livingroom : Passage {
                 if (Input.GetButtonDown("Act"))
                 {
                     interactible[3].SetActive(false);
-                    text[11].GetComponent<Typewriter>().SetText("");
+                    text[11].GetComponent<Text>().text = "";
                     ui[2].SetActive(false);
                     interactible[6].SetActive(true);
                     text[11].GetComponent<Typewriter>().SetText("");

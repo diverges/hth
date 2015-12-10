@@ -63,6 +63,9 @@ public class P2_Hallway : Passage {
                     props[1].GetComponent<AudioSource>().Play(); // Wind
                     props[2].GetComponent<AudioSource>().Stop(); // Stop footstep sound
 
+                    interactible[3].SetActive(true);
+                    ui[3].SetActive(true);
+
                     interactible[0].SetActive(true);
                     yield return StartCoroutine(Stall());
                     interactible[0].SetActive(false);
@@ -96,9 +99,6 @@ public class P2_Hallway : Passage {
                     text[1].GetComponent<Typewriter>().LoadText("Um...nothing?", 0.20f);
                     yield return StartCoroutine(Stall(text[1].GetComponent<Typewriter>()));
                     text[1].GetComponent<Typewriter>().LoadText("Why is the window open?");
-
-                    interactible[3].SetActive(true);
-                    ui[3].SetActive(true);
 
                     ui[0].SetActive(true);
                     text[0].text = "";

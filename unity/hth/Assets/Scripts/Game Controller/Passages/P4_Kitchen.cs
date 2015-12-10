@@ -71,7 +71,7 @@ public class P4_Kitchen : Passage {
                     interactible[1].GetComponent<Typewriter>().SetText(" Alright, pizza time! ");
 
                     interactible[2].SetActive(true);
-                    interactible[2].GetComponent<Typewriter>().SetText(" Pickup Tony's mess.");
+                    interactible[2].GetComponent<Typewriter>().SetText(" Sweep Tony's mess.");
  
                     cState = State.IDLE;
                     break;
@@ -79,6 +79,8 @@ public class P4_Kitchen : Passage {
                 //
                 //
                 case State.BAD_TONY:
+                    props[3].SetActive(false);
+                    props[5].GetComponent<AudioSource>().Play();
                     text[2].GetComponent<Typewriter>().LoadText("There's no way to clean this up before mom gets home", 0.1f);
                     yield return StartCoroutine(Stall(text[2].GetComponent<Typewriter>()));
 
@@ -104,8 +106,12 @@ public class P4_Kitchen : Passage {
                     interactible[0].GetComponent<Typewriter>().SetText(" Share Pizza");
                     yield return StartCoroutine(Stall());
 
+                    props[1].SetActive(false);
+                    props[2].SetActive(true);
                     text[0].GetComponent<Typewriter>().LoadText(". . .", 0.5f);
                     yield return StartCoroutine(Stall(text[0].GetComponent<Typewriter>()));
+                    props[2].GetComponent<AudioSource>().Play();
+                    props[4].SetActive(false);
 
                     text[0].GetComponent<Typewriter>().LoadText("Rest in pizza, Tony.", 0.08f);
                     yield return StartCoroutine(Stall(text[0].GetComponent<Typewriter>()));
