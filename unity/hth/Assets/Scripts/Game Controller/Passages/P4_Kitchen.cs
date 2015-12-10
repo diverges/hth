@@ -56,7 +56,8 @@ public class P4_Kitchen : Passage {
                     interactible[0].GetComponent<Typewriter>().LoadText(" Put handle back on.");
                     yield return StartCoroutine(Stall());
                     props[0].SetActive(false);
-                    props[1].SetActive(true);   
+                    props[1].SetActive(true);
+                    props[1].GetComponent<AudioSource>().Play();
 
                     text[0].GetComponent<Typewriter>().LoadText("Good as new...", 0.1f);
                     yield return StartCoroutine(Stall(text[0].GetComponent<Typewriter>()));

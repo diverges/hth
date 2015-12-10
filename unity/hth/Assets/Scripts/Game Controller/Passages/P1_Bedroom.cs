@@ -133,10 +133,10 @@ public class P1_Bedroom : Passage {
  
                    
                     yield return new WaitForSeconds(DELAY_TITLE_TEXT);
-                    text[0].GetComponent<Typewriter>().LoadText("NOT\n ALONE");
+                    text[0].GetComponent<Typewriter>().LoadText("NOT\nALONE");
 
                     yield return new WaitForSeconds(DELAY_SUBTITLE_TEXT);
-                    text[1].GetComponent<Typewriter>().LoadText("\n\n\n\n\n\n\nA hypertext\nadventure game");
+                    text[1].GetComponent<Typewriter>().LoadText("\n\n\n\n\nA hypertext\nadventure game");
 
                     yield return new WaitForSeconds(DELAY_SUBTITLE_TO_NEWS);
                     text[1].GetComponent<Typewriter>().Fade(2.5f);
@@ -258,7 +258,7 @@ public class P1_Bedroom : Passage {
                     ui[1].SetActive(false);
                     props[1].GetComponent<AudioSource>().Play();
                     yield return new WaitForSeconds(DELAY_CALL_TO_MUSIC);
-                    props[5].GetComponent<AudioSource>().Play();
+                    props[5].GetComponents<AudioSource>()[0].Play();
                     interactible[2].SetActive(true);
                     cState = State.IDLE;
                     break;

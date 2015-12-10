@@ -84,6 +84,12 @@ public class P3_Livingroom : Passage {
                     yield return StartCoroutine(Stall());
                     text[10].GetComponent<Typewriter>().SetText("");
 
+                    // change audio
+                    AudioSource[] sounds = props[5].GetComponents<AudioSource>();
+                    sounds[0].Stop();
+                    sounds[1].Play();
+                        
+
                     // draw mirror text
 					props[4].GetComponent<AudioSource>().Play();
 					text[3].GetComponent<Typewriter>().LoadText("      PIZZA", 0.1f);
@@ -163,6 +169,8 @@ public class P3_Livingroom : Passage {
                     interactible[15].GetComponent<Typewriter>().SetText("Close...");
                     interactible[15].SetActive(true);
                     yield return StartCoroutine(Stall());
+                    text[11].GetComponent<Typewriter>().SetText("");
+                    ui[2].SetActive(false);
 
                     text[11].GetComponent<Typewriter>().SetText("");
 
@@ -450,6 +458,7 @@ public class P3_Livingroom : Passage {
                 if (Input.GetButtonDown("Act"))
                 {
                     interactible[3].SetActive(false);
+                    text[11].GetComponent<Typewriter>().SetText("");
                     ui[2].SetActive(false);
                     interactible[6].SetActive(true);
                     text[11].GetComponent<Typewriter>().SetText("");
