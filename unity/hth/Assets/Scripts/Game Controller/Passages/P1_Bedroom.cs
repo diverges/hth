@@ -118,20 +118,12 @@ public class P1_Bedroom : Passage {
                 //
                 // Initial State - Load Title
                 case State.INIT:
-                    isWaiting = true;
-                    while (isWaiting)
-                    {
-                        if (Input.GetButtonDown("Act"))
-                        {
-                            isWaiting = false;
-                            text[1].GetComponent<Typewriter>().Clear();
-                            text[0].text = "";
-                            text[1].text = "";
-                        }
-                        yield return new WaitForSeconds(0.01f);
-                    }
- 
-                   
+                    interactible[3].SetActive(true);
+                    interactible[3].GetComponent<Text>().text = "Click here to turn TV on";
+                    yield return StartCoroutine(Stall());
+                    interactible[4].SetActive(true);
+                    interactible[3].GetComponent<Text>().text = "change\nchannel";
+
                     yield return new WaitForSeconds(DELAY_TITLE_TEXT);
                     text[0].GetComponent<Typewriter>().LoadText("NOT\nALONE");
 
@@ -245,8 +237,6 @@ public class P1_Bedroom : Passage {
                                         );
                     yield return StartCoroutine(Stall(text[2].GetComponent<Typewriter>()));
                     yield return new WaitForSeconds(DELAY_MOM_TALK);
-
-
                                       
                     cState = State.FOOTSTEPS;
 
@@ -259,6 +249,7 @@ public class P1_Bedroom : Passage {
                     props[1].GetComponent<AudioSource>().Play();
                     yield return new WaitForSeconds(DELAY_CALL_TO_MUSIC);
                     props[5].GetComponents<AudioSource>()[0].Play();
+                    yield return new WaitForSeconds(2.0f);
                     interactible[2].SetActive(true);
                     cState = State.IDLE;
                     break;
@@ -305,8 +296,6 @@ public class P1_Bedroom : Passage {
         ui[0].SetActive(true);
         text[0].text = "";
         text[1].text = "";
-
-        text[1].GetComponent<Typewriter>().LoadText(" click\nto\nstart");
 
         // Start State Coroutine
         co = StartCoroutine(UpdateState());
@@ -377,7 +366,11 @@ public class P1_Bedroom : Passage {
                 }
                 break;
             case GameActor.P1_TV:
-                if (text[1].text != "" && Input.GetButtonDown("Act")) {
+                if(cState == State.INIT && Input.GetButtonDown("Act")) {
+                    interactible[3].SetActive(false);
+                    isWaiting = false;
+                }
+                else if (text[1].text != "" && Input.GetButtonDown("Act")) {
                     channel = !channel;
                     tvVerse = 0;
                     text[1].GetComponent<Typewriter>().Clear();

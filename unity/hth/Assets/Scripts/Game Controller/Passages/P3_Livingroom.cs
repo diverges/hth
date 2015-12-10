@@ -198,8 +198,8 @@ public class P3_Livingroom : Passage {
                     text[9].GetComponent<Typewriter>().LoadText(". . . ", 0.7f);
                     yield return StartCoroutine(Stall(text[9].GetComponent<Typewriter>()));
                     yield return new WaitForSeconds(1.0f);
-                    interactible[13].SetActive(true);
-                    interactible[13].GetComponent<Typewriter>().LoadText("Better take this back\nto the kitchen...");
+                    interactible[16].SetActive(true);
+                    interactible[16].GetComponent<Typewriter>().LoadText("Better take this back\nto the kitchen...");
                     cState = State.IDLE;
                     break;
                 // Default - Should not get here

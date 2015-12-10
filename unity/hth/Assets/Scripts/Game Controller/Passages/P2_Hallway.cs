@@ -235,6 +235,7 @@ public class P2_Hallway : Passage {
                 {
                     props[1].GetComponent<AudioSource>().Stop();
                     props[5].GetComponent<Transform>().Rotate(0, 0, -60);
+                    props[5].GetComponent<AudioSource>().Play();
                     interactible[0].SetActive(false);
                     cState = State.WINDOW;
                 }
