@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< Updated upstream
 guid: 839d61a0c6075ad4faef93cb320d38c8
 timeCreated: 1449448220
+=======
+guid: 4fb7ab358062943db84b68b8c60e72e1
+timeCreated: 1449507176
+>>>>>>> Stashed changes
 licenseType: Free
 TrueTypeFontImporter:
   serializedVersion: 2

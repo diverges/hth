@@ -72,7 +72,7 @@ public class P3_Livingroom : Passage {
                     text[10].GetComponent<Typewriter>().LoadText(". . . ", 0.5f);
                     yield return new WaitForSeconds(DELAY_TONY_EAT);
                     interactible[13].SetActive(true);
-                    interactible[13].GetComponent<Typewriter>().LoadText("W-W-What is that?", 0.08f);
+                    interactible[13].GetComponent<Typewriter>().LoadText("W-W-What's going on?", 0.08f);
                     yield return StartCoroutine(Stall());
 
                     //TODO: Play sound
@@ -85,27 +85,29 @@ public class P3_Livingroom : Passage {
                     text[10].GetComponent<Typewriter>().SetText("");
 
                     // draw mirror text
-                    text[3].GetComponent<Typewriter>().LoadText("PIZZA!!", 0.1f);
+					props[4].GetComponent<AudioSource>().Play();
+					text[3].GetComponent<Typewriter>().LoadText("      PIZZA", 0.1f);
                     yield return StartCoroutine(Stall(text[3].GetComponent<Typewriter>()));
                     text[3].GetComponent<Typewriter>().Fade(1.0f);
                     yield return StartCoroutine(Stall(text[3].GetComponent<Typewriter>()));
 
-                    text[3].GetComponent<Typewriter>().LoadText("\nPIZZA!!", 0.1f);
+                    text[3].GetComponent<Typewriter>().LoadText("\n      PIZZA!", 0.1f);
                     yield return StartCoroutine(Stall(text[3].GetComponent<Typewriter>()));
                     text[3].GetComponent<Typewriter>().Fade(1.0f);
                     yield return StartCoroutine(Stall(text[3].GetComponent<Typewriter>()));
 
-                    text[3].GetComponent<Typewriter>().LoadText("\n\nPIZZA!!", 0.1f);
+                    text[3].GetComponent<Typewriter>().LoadText("\n\n      PIZZA!!", 0.1f);
                     yield return StartCoroutine(Stall(text[3].GetComponent<Typewriter>()));
                     text[3].GetComponent<Typewriter>().Fade(1.0f);
                     yield return StartCoroutine(Stall(text[3].GetComponent<Typewriter>()));
 
-                    text[3].GetComponent<Typewriter>().LoadText("\n\n\nPIZZA!!", 0.1f);
+                    text[3].GetComponent<Typewriter>().LoadText("\n\n\n   PIZZA!!!!", 0.1f);
                     yield return StartCoroutine(Stall(text[3].GetComponent<Typewriter>()));
                     text[3].GetComponent<Typewriter>().Fade(1.0f);
                     yield return StartCoroutine(Stall(text[3].GetComponent<Typewriter>()));
 
-                    text[3].GetComponent<Typewriter>().LoadText("TONY\nBALONEY\nWANT\nPIZZA!!!", 0.05f);
+					props[4].GetComponent<AudioSource>().Play();
+					text[3].GetComponent<Typewriter>().LoadText("      TONY\n   BALONEY\n      WANT\n     PIZZA!!!", 0.05f);
                     yield return StartCoroutine(Stall(text[3].GetComponent<Typewriter>()));
 
                     interactible[5].SetActive(true);
@@ -115,7 +117,7 @@ public class P3_Livingroom : Passage {
                     cState = State.IDLE;
                     break;
                 case State.LR_COMPUTER:
-                    interactible[15].GetComponent<Typewriter>().LoadText("Google might know...");
+                    interactible[15].GetComponent<Typewriter>().LoadText("Google 'Tony Baloney'");
                     yield return StartCoroutine(Stall());
                     interactible[15].GetComponent<Typewriter>().SetText("Read on...");
                     ui[2].SetActive(true);
@@ -141,14 +143,15 @@ public class P3_Livingroom : Passage {
                     interactible[15].SetActive(true);
                     yield return StartCoroutine(Stall());
 
-                    // TODO: Play sound effect
-                    interactible[3].GetComponent<Typewriter>().SetText("Tony...?");
-                    interactible[3].SetActive(true);
-
                     text[11].GetComponent<Typewriter>().LoadText("\"Tony wasn't self-destructive\nas much as he was...\ndim-witted.\" remarked\nTony's eating coach.", 0.05f);
                     yield return StartCoroutine(Stall(text[11].GetComponent<Typewriter>()));
                     interactible[15].SetActive(true);
                     yield return StartCoroutine(Stall());
+
+					// TODO: Play sound effect
+					interactible[3].GetComponent<Typewriter>().SetText("Tony...?");
+					interactible[3].SetActive(true);
+					// todo: start playing new music when player looks at "Tony...?"	
 
                     text[11].GetComponent<Typewriter>().LoadText("\"He embodied a truly sacrificial\napproach to eating,\nout of a deep - \nseated love for pizza.", 0.05f);
                     yield return StartCoroutine(Stall(text[11].GetComponent<Typewriter>()));
@@ -169,7 +172,7 @@ public class P3_Livingroom : Passage {
                     interactible[15].SetActive(false);
                     isWaiting = false;
 
-                    text[4].GetComponent<Typewriter>().LoadText("What happened here!?\nThe handle appears to be missing...");
+                    text[4].GetComponent<Typewriter>().LoadText("What happened here?\nWhy's the handle missing?");
                     yield return StartCoroutine(Stall(text[4].GetComponent<Typewriter>()));
                     interactible[8].SetActive(true); // fridge
                     interactible[9].SetActive(true); // trash
@@ -300,7 +303,7 @@ public class P3_Livingroom : Passage {
             // active objects when searching for handle
             case GameActor.P3_K_TRASH:
                 if(interactible[9].GetComponent<Text>().text.Length == 0) {
-                    interactible[9].GetComponent<Typewriter>().LoadText("Maybe, it's in the trash...");
+                    interactible[9].GetComponent<Typewriter>().LoadText("Is it in the trash?");
                 }
                 else if (Input.GetButtonDown("Act"))
                 {
@@ -309,14 +312,14 @@ public class P3_Livingroom : Passage {
                     if (!interactible[8].activeSelf)
                     {
                         interactible[7].SetActive(true);
-                        interactible[7].GetComponent<Typewriter>().LoadText("Maybe it's in the living room.");
+                        interactible[7].GetComponent<Typewriter>().LoadText("Is it in the living room?");
                     }
                 }
                 break;
             case GameActor.P3_K_FRIDGE:
                 if (interactible[8].GetComponent<Text>().text.Length == 0)
                 {
-                    interactible[8].GetComponent<Typewriter>().LoadText("Maybe, it's in the fridge...");
+                    interactible[8].GetComponent<Typewriter>().LoadText("Is it in the fridge?");
                 }
                 else if (Input.GetButtonDown("Act"))
                 {
@@ -325,7 +328,7 @@ public class P3_Livingroom : Passage {
                     if (!interactible[9].activeSelf)
                     {
                         interactible[7].SetActive(true);
-                        interactible[7].GetComponent<Typewriter>().LoadText("Maybe it's in the living room.");
+                        interactible[7].GetComponent<Typewriter>().LoadText("Is it in the living room?");
                     }
                 }
                 break;
@@ -363,7 +366,7 @@ public class P3_Livingroom : Passage {
                 break;
             case GameActor.P3_B_TUB:
                 if (interactible[14].GetComponent<Text>().text == "") {
-                    interactible[14].GetComponent<Typewriter>().LoadText("behind here maybe?");
+                    interactible[14].GetComponent<Typewriter>().LoadText("behind here?");
                 }
                 else if (Input.GetButtonDown("Act")) {
                     interactible[14].SetActive(false);
