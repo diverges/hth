@@ -142,7 +142,7 @@ public class P2_Hallway : Passage {
                 case State.BROOM:
                     yield return StartCoroutine(Stall(text[2].GetComponent<Typewriter>()));
                     props[4].SetActive(false);
-                    interactible[4].GetComponent<Text>().text = "Is someone there?";
+                    interactible[4].GetComponent<Text>().text = "'Is someone there?'";
                     interactible[4].SetActive(true);
                     cState = State.IDLE;
                     break;
@@ -252,7 +252,7 @@ public class P2_Hallway : Passage {
                     interactible[4].SetActive(false);
                     interactible[3].SetActive(false);
                     interactible[2].SetActive(false);
-                    text[2].GetComponent<Typewriter>().LoadText("This isn't ideal\nbut it could help.");
+                    text[2].GetComponent<Typewriter>().LoadText("This isn't much\nbut it could help");
                     cState = State.BROOM;
                 }
                 break;

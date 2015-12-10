@@ -53,7 +53,7 @@ public class P4_Kitchen : Passage {
                     yield return StartCoroutine(Stall(text[0].GetComponent<Typewriter>()));
 
                     interactible[0].SetActive(true);
-                    interactible[0].GetComponent<Typewriter>().LoadText(" Put handle back on.");
+                    interactible[0].GetComponent<Typewriter>().LoadText(" Put handle back on");
                     yield return StartCoroutine(Stall());
                     props[0].SetActive(false);
                     props[1].SetActive(true);
@@ -71,7 +71,7 @@ public class P4_Kitchen : Passage {
                     interactible[1].GetComponent<Typewriter>().SetText(" Alright, pizza time! ");
 
                     interactible[2].SetActive(true);
-                    interactible[2].GetComponent<Typewriter>().SetText(" Sweep Tony's mess.");
+                    interactible[2].GetComponent<Typewriter>().SetText(" Sweep Tony's mess");
  
                     cState = State.IDLE;
                     break;
@@ -85,7 +85,7 @@ public class P4_Kitchen : Passage {
                     yield return StartCoroutine(Stall(text[2].GetComponent<Typewriter>()));
 
                     interactible[0].SetActive(true);
-                    interactible[0].GetComponent<Typewriter>().LoadText(" Thanks for nothing, Tony.");
+                    interactible[0].GetComponent<Typewriter>().LoadText(" Thanks for nothing, Tony");
                     yield return StartCoroutine(Stall());
 
                     text[0].GetComponent<Typewriter>().LoadText(". . .", 0.5f);
@@ -99,7 +99,7 @@ public class P4_Kitchen : Passage {
                     break;
 
                 case State.GOOD_TONY:
-                    text[1].GetComponent<Typewriter>().LoadText("Tony needs the pizza more than me.", 0.08f);
+                    text[1].GetComponent<Typewriter>().LoadText("Tony needs the pizza more than me", 0.08f);
                     yield return StartCoroutine(Stall(text[1].GetComponent<Typewriter>()));
 
                     interactible[0].SetActive(true);

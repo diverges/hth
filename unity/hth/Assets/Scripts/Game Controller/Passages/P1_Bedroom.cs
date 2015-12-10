@@ -71,7 +71,7 @@ public class P1_Bedroom : Passage {
                     switch (tvVerse)
                     {
                         case 0:
-                            tp.LoadText(" BREAKING\n NEWS We are getting reports\nof a sudden food shortage\nin our neighboring");
+                            tp.LoadText(" BREAKING NEWS:\n We are getting reports\nof a sudden food shortage\nin our neighboring");
                             break;
                         case 1:
                             tp.LoadText(" town of Springfield. Sources indicate that\nall the food in grocery");
@@ -166,7 +166,7 @@ public class P1_Bedroom : Passage {
                         props[4].GetComponent<AudioSource>(), 0.08f);
 
                     yield return StartCoroutine(Stall(text[2].GetComponent<Typewriter>()));
-                    interactible[1].GetComponent<Text>().text = "Hey mom...";
+                    interactible[1].GetComponent<Text>().text = "'Hey mom...'";
                     interactible[1].SetActive(true);
                     yield return StartCoroutine(Stall());
 
@@ -177,7 +177,7 @@ public class P1_Bedroom : Passage {
                     );
 
                     yield return StartCoroutine(Stall(text[2].GetComponent<Typewriter>()));
-                    interactible[1].GetComponent<Text>().text = "ok...";
+                    interactible[1].GetComponent<Text>().text = "'ok...'";
                     interactible[1].SetActive(true);
                     yield return StartCoroutine(Stall());
                     text[2].GetComponent<Typewriter>().LoadText(
@@ -194,7 +194,7 @@ public class P1_Bedroom : Passage {
 
                     yield return StartCoroutine(Stall(text[2].GetComponent<Typewriter>()));
                     interactible[1].SetActive(true);
-                    interactible[1].GetComponent<Text>().text = "PIZZA!!!";
+                    interactible[1].GetComponent<Text>().text = "'PIZZA!!!'";
                     yield return StartCoroutine(Stall());
                     text[2].GetComponent<Typewriter>().LoadText(
                         "We’ll be back later tonight.\n" +
@@ -202,7 +202,7 @@ public class P1_Bedroom : Passage {
                     );
                     yield return StartCoroutine(Stall(text[2].GetComponent<Typewriter>()));
 
-                    interactible[1].GetComponent<Text>().text = "Mom, no more...";
+                    interactible[1].GetComponent<Text>().text = "'Mom, no more...'";
                     interactible[1].SetActive(true);
 
                     cState = State.CALL_EXPIRED;
