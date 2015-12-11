@@ -225,7 +225,7 @@ public class P3_Livingroom : Passage {
         props[1].SetActive(true);
         Typewriter tp = text[0].GetComponent<Typewriter>();
         while(isActive) {
-			tp.LoadText("Sitting alone starring at the wall in a room");
+			tp.LoadText("Sitting alone staring at the wall in a room");
             yield return StartCoroutine(Stall(tp));
             yield return new WaitForSeconds(1.0f);
 
