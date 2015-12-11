@@ -4235,8 +4235,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 429.306671, y: 593.619934, z: -25.747757}
-  m_Center: {x: 107.821091, y: -106.647972, z: -5.1775713}
+  m_Size: {x: 651.148682, y: 655.370605, z: -29.7350636}
+  m_Center: {x: 72.8479233, y: -137.532501, z: 3.68578768}
 --- !u!114 &378226792
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10788,7 +10788,6 @@ GameObject:
   - 224: {fileID: 986545681}
   - 222: {fileID: 986545683}
   - 114: {fileID: 986545682}
-  - 114: {fileID: 986545684}
   m_Layer: 0
   m_Name: Passage- Picture
   m_TagString: Untagged
@@ -10844,30 +10843,17 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: ' The End. ... for now! The End. ... for now! The End. ... for now! The
-    End. ... for now! The End. ... for now!'
+  m_Text: 'A happy looking family,
+
+    crowded around a dinner table.
+
+    Everyone''s smiling.'
 --- !u!222 &986545683
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 986545680}
---- !u!114 &986545684
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 986545680}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34715d48035ebae49aaae017b8d24988, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  delay: .0399999991
-  message: 
-  guiText: {fileID: 986545682}
-  typing: 0
-  fading: 0
 --- !u!1 &997192278
 GameObject:
   m_ObjectHideFlags: 0
@@ -11880,6 +11866,76 @@ RectTransform:
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: 5c1cdc708cc1cfc458c763e23978e14d, type: 3}
   m_PrefabInternal: {fileID: 1705287422}
+--- !u!82 &1115215176
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1115215175}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 3079c68c2505343b0940a5878affe329, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!82 &1115215178
 AudioSource:
   m_ObjectHideFlags: 0
@@ -13941,7 +13997,7 @@ AudioSource:
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
-  BypassListenerEffects: 1
+  BypassListenerEffects: 0
   BypassReverbZones: 0
   rolloffCustomCurve:
     serializedVersion: 2
@@ -16390,6 +16446,18 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 08e169b469f52b442b50abc32441b121, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3058c0a4d43e86a4984c14c6c18bf147, type: 2}
+    - target: {fileID: 2300002, guid: 08e169b469f52b442b50abc32441b121, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3058c0a4d43e86a4984c14c6c18bf147, type: 2}
+    - target: {fileID: 2300004, guid: 08e169b469f52b442b50abc32441b121, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3058c0a4d43e86a4984c14c6c18bf147, type: 2}
     m_RemovedComponents:
     - {fileID: 9500000, guid: 08e169b469f52b442b50abc32441b121, type: 3}
   m_ParentPrefab: {fileID: 100100000, guid: 08e169b469f52b442b50abc32441b121, type: 3}

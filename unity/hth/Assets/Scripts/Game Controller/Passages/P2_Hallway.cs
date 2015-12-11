@@ -96,12 +96,11 @@ public class P2_Hallway : Passage {
                     yield return new WaitForSeconds(DELAY_LIGHT_FLICKER);
                     ui[1].SetActive(true);
 
-                    text[1].GetComponent<Typewriter>().LoadText("Um...nothing?", 0.20f);
+                    text[1].GetComponent<Typewriter>().LoadText("Nothing?", 0.20f);
                     yield return StartCoroutine(Stall(text[1].GetComponent<Typewriter>()));
-                    text[1].GetComponent<Typewriter>().LoadText("Why is the window open?");
-
                     ui[0].SetActive(true);
-                    text[0].text = "";
+                    text[0].GetComponent<Typewriter>().LoadText("Why is the window open?");
+                    yield return StartCoroutine(Stall(text[0].GetComponent<Typewriter>()));
                     interactible[0].SetActive(true);
                     yield return StartCoroutine(Stall());
                     interactible[0].GetComponent<Typewriter>().SetText("close window");
@@ -244,7 +243,7 @@ public class P2_Hallway : Passage {
                 if (text[3].GetComponent<Text>().text.Length == 0)
                 {
                     interactible[3].SetActive(false);
-                    text[3].GetComponent<Typewriter>().LoadText("A happy looking family,\ncrowded around a dinner table.\nEveryone's smiling.");
+                    //text[3].GetComponent<Typewriter>().LoadText("A happy looking family,\ncrowded around a dinner table.\nEveryone's smiling.");
                 }
                 break;
             case GameActor.P2_BROOM:

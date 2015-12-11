@@ -42,6 +42,9 @@ public class P1_Bedroom : Passage {
     // T.V.
     IEnumerator TV() {
         Typewriter tp = text[1].GetComponent<Typewriter>();
+        AudioSource[] audio = props[6].GetComponents<AudioSource>();
+        AudioSource news = audio[1];
+        AudioSource cooking = audio[0];
         
         while(props[0].activeSelf)
         {
@@ -50,7 +53,8 @@ public class P1_Bedroom : Passage {
             {
                 if (channel)
                 {
-                    props[6].GetComponent<AudioSource>().Stop();
+                    news.Stop();
+                    cooking.Play();
                     // Food
                     switch (tvVerse)
                     {
@@ -66,7 +70,8 @@ public class P1_Bedroom : Passage {
                 }
                 else
                 {
-                    props[6].GetComponent<AudioSource>().Play();
+                    cooking.Stop();
+                    news.Play();
                     // News
                     switch (tvVerse)
                     {

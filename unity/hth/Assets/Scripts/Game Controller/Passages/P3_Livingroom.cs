@@ -130,17 +130,17 @@ public class P3_Livingroom : Passage {
                     ui[2].SetActive(true);
 
                     text[11].GetComponent<Typewriter>().LoadText("August 15, 1955\n\n", 0.1f);
-                    text[11].GetComponent<Typewriter>().AppendText("Springfield - Tragedy strikes Springfield's Annual Pizza Eating Contest", 0.05f);
+                    text[11].GetComponent<Typewriter>().AppendText("Springfield - Tragedy strikes Springfield's\nAnnual Pizza Eating Contest", 0.05f);
                     yield return StartCoroutine(Stall(text[11].GetComponent<Typewriter>()));
                     interactible[15].SetActive(true);
                     yield return StartCoroutine(Stall());
 
-                    text[11].GetComponent<Typewriter>().LoadText("this year, as competitive eater\nTony Baloney was pronounced\ndead shortly after winning\nthe contest.", 0.05f);
+                    text[11].GetComponent<Typewriter>().LoadText("this year, as competitive\neater Tony Baloney was\npronounced dead shortly\nafter winning the contest.", 0.05f);
                     yield return StartCoroutine(Stall(text[11].GetComponent<Typewriter>()));
                     interactible[15].SetActive(true);
                     yield return StartCoroutine(Stall());
 
-                    text[11].GetComponent<Typewriter>().LoadText("The autopsy reported the death\na result of \"asphyxia due to\nchoking and aspiration\nof gastric contents.\"", 0.05f);
+                    text[11].GetComponent<Typewriter>().LoadText("The autopsy reported the\ndeath a result of \"asphyxia due to\nchoking and aspiration\nof gastric contents.\"", 0.05f);
                     yield return StartCoroutine(Stall(text[11].GetComponent<Typewriter>()));
                     interactible[15].SetActive(true);
                     yield return StartCoroutine(Stall());
@@ -200,10 +200,11 @@ public class P3_Livingroom : Passage {
                     interactible[14].SetActive(true);
                     yield return StartCoroutine(Stall());
                     interactible[14].SetActive(false);
-                    
+
                     props[2].SetActive(false);
                     props[3].SetActive(true);
                     props[3].GetComponent<AudioSource>().Play();
+
                     text[9].GetComponent<Typewriter>().LoadText(". . . ", 0.7f);
                     yield return StartCoroutine(Stall(text[9].GetComponent<Typewriter>()));
                     yield return new WaitForSeconds(1.0f);
@@ -225,7 +226,7 @@ public class P3_Livingroom : Passage {
         props[1].SetActive(true);
         Typewriter tp = text[0].GetComponent<Typewriter>();
         while(isActive) {
-			tp.LoadText("Sitting alone starring at the wall in a room");
+			tp.LoadText("Sitting alone staring at the wall in a room");
             yield return StartCoroutine(Stall(tp));
             yield return new WaitForSeconds(1.0f);
 
